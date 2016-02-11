@@ -52,3 +52,6 @@ instance/
 
 # Secret deployment configuration
 deploy/config.py
+
+# Binary image sources
+*.idraw

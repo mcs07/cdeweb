@@ -1,0 +1,140 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-size: 16px;
+  margin-bottom: 250px;
+}
+
+.cde-logo {
+  margin-right: 5px;
+  margin-top: 18px;
+  height: 42.53125px;
+}
+
+.navbar {
+  min-height: 76px;
+}
+
+.navbar-default {
+  background-color: #fff;
+  border-color: #e7e7e7;
+}
+
+.navbar-brand {
+  padding: 24px 15px;
+  height: 76px;
+  font-size: 28px;
+  line-height: 28px;
+}
+
+.navbar-default .navbar-brand {
+  color: #298eea;
+}
+
+.navbar-default .navbar-nav>li>a {
+  text-transform: uppercase;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #298eea;
+}
+
+.navbar-nav>li>a {
+  font-size: 14px;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+.btn {
+  border: none;
+  border-radius: 3px;
+}
+
+.welcome-message {
+  padding: 50px 0 40px;
+  color: #fff;
+  background-color: #488eea;
+  margin: -20px 0 40px;
+}
+
+.btn-welcome {
+  color: #488eea;
+  background-color: #fff;
+}
+
+.feature-display {
+  font-size: 18px;
+}
+
+.img-feature {
+  height: 100px;
+}
+
+header h3 {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 50px;
+  color: #4d5152;
+  background-color: #2e3234;
+  height: 250px;
+}
+
+footer h2 {
+  font-size: 22px;
+  margin: 0;
+}
+
+footer h2 a {
+  color: #fff;
+}
+
+footer h2 a:hover {
+  text-decoration: none;
+}
+
+footer .cde-logo {
+  margin-right: 5px;
+  margin-top: -3px;
+  height: 36px;
+}
+
+footer h3 {
+  margin-top: 3px;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: 1.5px;
+}
+
+footer ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+footer a {
+  color: #b8b8b8;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+#input_text {
+  height: 140px;
+}
