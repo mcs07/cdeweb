@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}About ChemDataExtractor{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>About ChemDataExtractor</h1>
+    <div class="row">
+      <div class="col-sm-8">
+        <p>ChemDataExtractor is a tool for automatically extracting chemical information from scientific documents.</p>
+
+        <p>Give it a journal article, and it will extract chemical names, properties, and spectra from the text so they
+        can be imported into a spreadsheet or database.</p>
+
+        <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it out {{utils.icon('chevron-right')}}</a>
+      </div>
+      <div class="col-sm-4">
+        <!--<img class="img-feature" src="{{ url_for('static', filename='img/document2.svg') }}">-->
+        <!--<img class="img-feature" src="{{ url_for('static', filename='img/chem.svg') }}">-->
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Online Demo Results | ChemDataExtractor{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Online Demo Results</h1>
+    <div class="row">
+      <div class="col-sm-12">
+        {{ job.task_id }}
+        {% if not task.failed() and job.result %}
+          <pre><code>{{ job.result | tojson(indent=2) }}</code></pre>
+        {% elif task.failed() %}
+          <p>Job failed</p>
+          <p>Task ID: {{ job.task_id }}</p>
+        {% else %}
+          <p>Please wait, ChemDataExtractor is running...</p>
+          <script type="text/javascript">
+            setInterval('window.location.reload()', 5000);
+          </script>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

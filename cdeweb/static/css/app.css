@@ -6,7 +6,30 @@ html {
 body {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 16px;
-  margin-bottom: 250px;
+  margin-bottom: 270px;
+  color: #444;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+p {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #498feb;
+}
+
+a:hover {
+  color: #337ab7;
+}
+
+.container {
+  max-width: 1000px;
 }
 
 .cde-logo {
@@ -32,7 +55,7 @@ body {
 }
 
 .navbar-default .navbar-brand {
-  color: #298eea;
+  color: #498feb;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -40,7 +63,7 @@ body {
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-  color: #298eea;
+  color: #498feb;;
 }
 
 .navbar-nav>li>a {
@@ -50,7 +73,6 @@ body {
 }
 
 .btn {
-  border: none;
   border-radius: 3px;
 }
 
@@ -64,6 +86,17 @@ body {
 .btn-welcome {
   color: #488eea;
   background-color: #fff;
+  border-color: #fff;
+}
+
+.btn-primary {
+  background-color: #488EEA;
+  border-color: #488EEA;
+}
+
+.btn-primary:hover {
+  background-color: #337ab7;
+  border-color: #337ab7;
 }
 
 .feature-display {
@@ -135,6 +168,34 @@ h2 {
   margin-top: 20px;
 }
 
-#input_text {
+.tab-pane {
+  margin-top: 20px;
+}
+
+#input-text {
   height: 140px;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
 }
