@@ -1,37 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}ChemDataExtractor Demo{% endblock %}
+{% block title %}Online Demo | ChemDataExtractor{% endblock %}
 
 {% block content %}
   <div class="container">
     <h2>Online Demo</h2>
-    <p>Enter text or upload a file to try ChemDataExtractor online. For more features and customization, download the <a href="#">toolkit</a> or use the <a href="#">web API</a>.</p>
+    <p>Upload a file or enter some text to try ChemDataExtractor online. For more features and customization, download the <a href="#">toolkit</a>.</p>
 
     <div>
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#tab-text" role="tab" data-toggle="tab">Enter text</a></li>
-        <li role="presentation"><a href="#tab-file" role="tab" data-toggle="tab">Upload file</a></li>
+        <li role="presentation" class="active"><a href="#tab-file" role="tab" data-toggle="tab">Upload file</a></li>
+        <li role="presentation"><a href="#tab-text" role="tab" data-toggle="tab">Enter text</a></li>
         <li role="presentation"><a href="#tab-url" role="tab" data-toggle="tab">Enter URL</a></li>
       </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="tab-text">
-          <form class="form" method="POST">
-            <div class="form-group">
-              <textarea id="input-text" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-              <button id="submit-text" class="btn btn-lg btn-primary">Submit</button>
-            </div>
-          </form>
-
-
-        </div>
-        <div role="tabpanel" class="tab-pane" id="tab-file">
+        <div role="tabpanel" class="tab-pane active" id="tab-file">
+          <p>ChemDataExtractor can process any document in HTML, XML or PDF format.</p>
+          <p>It works best with HTML journal articles published by the ACS and the RSC.</p>
           <form class="form" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <div class="input-group">
                 <span class="input-group-btn">
-                  <span class="btn btn-default btn-file">Browse&hellip;<input type="file" name="input-file"></span>
+                  <span class="btn btn-default btn-file">Browse for file&hellip;<input type="file" name="input-file"></span>
                 </span>
                 <input type="text" class="form-control" readonly>
               </div>
@@ -41,8 +31,22 @@
             </div>
           </form>
         </div>
-        <div role="tabpanel" class="tab-pane" id="tab-url">
 
+        <div role="tabpanel" class="tab-pane" id="tab-text">
+          <form class="form" method="POST">
+            <div class="form-group">
+              <textarea id="input-text" name="input-text" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+              <button id="submit-text" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+          </form>
+
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="tab-url">
+          Coming soon...
         </div>
       </div>
     </div>

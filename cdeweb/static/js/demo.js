@@ -1,12 +1,12 @@
 $(function() {
 
-    $('#submit-text').on('click', function() {
-        var text = $('#input-text').val();
-        console.log(text);
-        $.post('/demo', {'text': text}, function() {
-
-        });
-    });
+    //$('#submit-text').on('click', function() {
+    //    var text = $('#input-text').val();
+    //    console.log(text);
+    //    $.post('/demo', {'text': text}, function() {
+    //
+    //    });
+    //});
 
     $('.btn-file :file').on('change', function() {
         var input = $(this),

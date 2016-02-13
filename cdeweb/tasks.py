@@ -32,6 +32,6 @@ def run_cde(job_id):
     cde_job = CdeJob.query.get(job_id)
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], cde_job.file)
     with open(filepath) as f:
-        document = Document.from_file(f)
+        document = Document.from_file(f, fname=cde_job.file)
     cde_job.result = [r.to_primitive() for r in document.records]
     db.session.commit()

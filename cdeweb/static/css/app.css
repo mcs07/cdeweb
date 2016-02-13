@@ -72,8 +72,25 @@ a:hover {
   padding-bottom: 28px;
 }
 
+.label {
+  font-weight: normal;
+  font-size: 92%;
+}
+
 .btn {
   border-radius: 3px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+  background-color: #488eea;
+}
+
+.nav-pills>li>a {
+  border-radius: 3px;
+}
+
+.nav-pills>li>a {
+  padding: 6px 15px
 }
 
 .welcome-message {
@@ -90,7 +107,7 @@ a:hover {
 }
 
 .btn-primary {
-  background-color: #488EEA;
+  background-color: #488eea;
   border-color: #488EEA;
 }
 
@@ -198,4 +215,30 @@ h2 {
 input[readonly] {
   background-color: white !important;
   cursor: text !important;
+}
+
+.label-primary {
+  background-color: #498feb;
+}
+
+*[data-toggle="collapse"] {
+  cursor: pointer;
+}
+
+*[data-toggle="collapse"]:hover {
+  color: #498feb;
+}
+
+th {
+  background-color: #f7f7f7;
+}
+
+.panel-compound {
+  margin-bottom: 30px;
+}
+
+.panel-compound .panel-body {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: #fafafa;
 }

@@ -66,13 +66,13 @@
                 <h3>About</h3>
                 <ul>
                   <li>
-                    <a href="#">About</a>
+                    <a href="{{ url_for('about') }}">About</a>
                   </li>
                   <li>
                     <a href="#">News</a>
                   </li>
                   <li>
-                    <a href="{{ url_for('index') }}">Citing</a>
+                    <a href="{{ url_for('citing') }}">Citing</a>
                   </li>
                 </ul>
               </div>
@@ -80,7 +80,7 @@
                 <h3>Try</h3>
                 <ul>
                   <li>
-                    <a href="#">Online Demo</a>
+                    <a href="{{ url_for('demo') }}">Online Demo</a>
                   </li>
                   <li>
                     <a href="#">Web API</a>
