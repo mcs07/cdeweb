@@ -283,18 +283,38 @@
     </div>
 {% endmacro %}
 
-{##}
-{#class FluorescenceLifetime(BaseModel):#}
-{#    """A fluorescence lifetime measurement."""#}
-{#    value = StringType()#}
-{#    units = StringType()#}
-{#    solvent = StringType()#}
-{#    concentration = StringType()#}
-{#    concentration_units = StringType()#}
-{#    temperature = StringType()#}
-{#    temperature_units = StringType()#}
-{##}
-{##}
+{% macro display_fl(fl) %}
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered">
+          {% if 'value' in fl %}
+            <tr>
+              <th class="col-xs-3">Value</th>
+              <td class="col-xs-9">{{ fl['value'] }}{% if 'units' in fl %} {{ fl['units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'solvent' in fl %}
+            <tr>
+              <th class="col-xs-3">Solvent</th>
+              <td class="col-xs-9">{{ fl['solvent'] }}</td>
+            </tr>
+          {% endif %}
+          {% if 'temperature' in fl %}
+            <tr>
+              <th class="col-xs-3">Temperature</th>
+              <td class="col-xs-9">{{ fl['temperature'] }}{% if 'temperature_units' in fl %} {{ fl['temperature_units'] }}{% endif %}</td>
+            </tr>
+          {% endif %}
+          {% if 'apparatus' in fl %}
+            <tr>
+              <th class="col-xs-3">Apparatus</th>
+              <td class="col-xs-9">{{ fl['apparatus'] }}</td>
+            </tr>
+          {% endif %}
+        </table>
+      </div>
+    </div>
+{% endmacro %}
 
 {% macro display_mp(mp) %}
     <div class="row">
@@ -412,15 +432,15 @@
         {% if not task.failed() and job.result %}
           <div>
             <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>
+{#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>
               <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">JSON</a></li>
             </ul>
             <div class="tab-content">
-              <div role="tabpanel" class="tab-pane" id="tab-document">
-                <p class="alert alert-info">This is a simplified model of the input document that is used by ChemDataExtractor to interpret chemical information.</p>
-                {{ document._repr_html_() | safe }}
-              </div>
+{#              <div role="tabpanel" class="tab-pane" id="tab-document">#}
+{#                <p class="alert alert-info">This is a simplified model of the input document that is used by ChemDataExtractor to interpret chemical information.</p>#}
+{#                {{ document._repr_html_() | safe }}#}
+{#              </div>#}
               <div role="tabpanel" class="tab-pane active" id="tab-records">
                 {% for record in important_records %}
                   {{ display_compound(record, loop.index0) }}
