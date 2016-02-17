@@ -18,6 +18,7 @@ import os
 
 from celery import Celery
 from flask import Flask, request
+from flask_mail import Mail
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_moment import Moment
@@ -57,8 +58,9 @@ app.config.from_pyfile('config.py', silent=True)
 
 # Register extensions
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+mail = Mail(app)
 ma = Marshmallow(app)
+migrate = Migrate(app, db)
 moment = Moment(app)
 
 

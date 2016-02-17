@@ -310,3 +310,8 @@ th {
 .release-date {
   line-height: 26px;
 }
+
+#form-contact textarea {
+  resize: vertical;
+  height: 100px;
+}

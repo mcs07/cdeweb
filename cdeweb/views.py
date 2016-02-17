@@ -17,12 +17,13 @@ import logging
 import os
 import uuid
 
-from cde.doc.document import Document
+from flask import render_template, request, url_for, redirect, abort, flash
+from flask_mail import Message
 import natsort
-from flask import render_template, request, url_for, redirect, abort
 import six
 
-from . import app, tasks, db
+from . import app, tasks, db, mail
+from .forms import ContactForm
 from .models import CdeJob
 from .tasks import celery
 
@@ -48,6 +49,21 @@ def download():
 @app.route('/citing')
 def citing():
     return render_template('citing.html')
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        msg = Message(
+            subject='ChemDataExtractor contact message',
+            recipients=app.config['MAIL_RECIPIENTS'],
+            body='From: %s <%s>\n\n%s' % (form.name.data, form.email.data, form.message.data)
+        )
+        mail.send(msg)
+        flash('Your message was sent successfully.')
+        return redirect(url_for('contact'))
+    return render_template('contact.html', form=form)
 
 
 @app.route('/demo', methods=['GET', 'POST'])
@@ -93,9 +109,6 @@ def demo():
 def results(result_id):
     task = celery.AsyncResult(result_id)
     job = CdeJob.query.filter_by(job_id=result_id).first()
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], job.file)
-    # with open(filepath) as f:
-    #     document = Document.from_file(f)
     # Divide the results:
     important_records = []
     other_records = []

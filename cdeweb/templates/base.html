@@ -47,12 +47,8 @@
             </div>
           </nav>
         {%- endblock navbar %}
-
-{#        <div class="container">#}
-{#          {{utils.flashed_messages(messages)}}#}
-{#        </div>#}
-          {% block content -%}
-          {%- endblock content %}
+        {% block content -%}
+        {%- endblock content %}
         {% block footer -%}
         <footer>
           <div class="container">
@@ -99,7 +95,7 @@
                 <h3>Help</h3>
                 <ul>
                   <li>
-                    <a href="#">Contact</a>
+                    <a href="{{ url_for('contact') }}">Contact</a>
                   </li>
                   <li>
                     <a href="/docs">Documentation</a>

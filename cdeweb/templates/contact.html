@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | ChemDataExtractor{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Contact Us</h1>
+    <div class="container">
+      {{ utils.flashed_messages(messages) }}
+    </div>
+    <form id="form-contact" method="post" class="form-horizontal">
+      {{ form.hidden_tag() }}
+      <div class="form-group{% if form.name.errors %} has-error{% endif -%}">
+        {{ form.name.label(class='col-sm-2 control-label') }}
+        <div class="col-sm-10">
+          {{ form.name(class='form-control') }}
+          {% for error in form.name.errors %}
+            <p class="help-block">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group{% if form.email.errors %} has-error{% endif -%}">
+        {{ form.email.label(class='col-sm-2 control-label') }}
+        <div class="col-sm-10">
+          {{ form.email(class='form-control') }}
+          {% for error in form.email.errors %}
+            <p class="help-block">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group{% if form.message.errors %} has-error{% endif -%}">
+        {{ form.message.label(class='col-sm-2 control-label') }}
+        <div class="col-sm-10">
+          {{ form.message(class='form-control') }}
+          {% for error in form.message.errors %}
+            <p class="help-block">{{ error }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          {{ form.submit(class='btn btn-primary btn-lg') }}
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
