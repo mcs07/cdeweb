@@ -15,10 +15,10 @@ from . import db
 from . import rabbitmq
 
 
-#: Production server ssh login username
-env.user = 'root'
-# Production server
-env.hosts = ['chemdataextractor.org']
+# #: Production server ssh login username
+# env.user = 'root'
+# # Production server
+# env.hosts = ['chemdataextractor.org']
 # Application name
 env.app_name = 'cdeweb'
 # Application user
@@ -40,10 +40,24 @@ env.rabbitmq_vhost = '%(app_name)s_vhost' % env
 
 
 @task
+def dev():
+    env.user = 'vagrant'
+    env.hosts = ['192.168.33.10']
+
+
+@task
+def prod():
+    env.user = 'root'
+    env.hosts = ['chemdataextractor.org']
+
+
+
+@task
 def setup():
     """Initial setup - create application user, database, install package dependencies."""
     require.user(env.app_user, group='www-data', system=True, create_home=True)
     require.postgres.server()
+    rabbitmq.server()
     require.nginx.server()
     require.deb.packages(['libxml2-dev', 'libxslt1-dev', 'python-dev'])
     setup_postgres()
@@ -54,17 +68,17 @@ def setup():
 def setup_postgres():
     """Initial postgres setup."""
     if not db.user_exists(env.database_user):
-        if not env.database_pw:
+        if 'database_pw' not in env:
             prompt('PostgreSQL database password:', key='database_pw')
         create_user(env.database_user, password=env.database_pw, encrypted_password=True)
     if not database_exists(env.database_name):
-        create_database(env.database_name, env.database_user, locale='en_GB.UTF-8')
+        create_database(env.database_name, env.database_user)
 
 
 @task
 def setup_rabbitmq():
     """Initial RabbitMQ setup."""
-    if not env.rabbitmq_pw:
+    if 'rabbitmq_pw' not in env:
         prompt('RabbitMQ password:', key='rabbitmq_pw')
     rabbitmq.require_user(env.rabbitmq_user, env.rabbitmq_pw)
     rabbitmq.require_vhost(env.rabbitmq_vhost)
@@ -106,8 +120,6 @@ def deploy_config():
 @task
 def deploy_gunicorn():
     """Deploy gunicorn service."""
-    # TODO: Maybe ensure wsgi.py permissions are set to executable
-    # require.file('%(wsgi_dir)s/%(app_name)s.wsgi' % env, source='deploy/%(app_name)s.wsgi' % env, use_sudo=True, group='www-data', mode='654')
     require.files.template_file(
         '/etc/init/%(app_name)s.conf' % env,
         template_source='deploy/gunicorn.conf',

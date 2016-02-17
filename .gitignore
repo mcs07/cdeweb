@@ -43,6 +43,9 @@ docs/_build/
 # PyCharm
 .idea/
 
+# vagrant
+.vagrant/
+
 # celery
 celerybeat-schedule
 celerybeat.pid

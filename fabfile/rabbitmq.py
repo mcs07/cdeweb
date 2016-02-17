@@ -8,6 +8,15 @@ RabbitMQ fabric tasks.
 """
 
 from fabric.api import *
+from fabtools import require
+
+
+def server():
+    """Require a RabbitMQ server to be installed and running."""
+    require.deb.source('rabbitmq', 'http://www.rabbitmq.com/debian/', 'testing', 'main')
+    require.deb.key('056E8E56', url='https://www.rabbitmq.com/rabbitmq-signing-key-public.asc')
+    require.deb.package('rabbitmq-server')
+    require.service.started('rabbitmq-server')
 
 
 def user_exists(name):
