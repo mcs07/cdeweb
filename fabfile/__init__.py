@@ -28,7 +28,7 @@ env.app_dir = '/var/www/apps/%(app_name)s' % env
 # Config file to use
 env.config_file = 'deploy/config.py'
 # Git remote to clone/pull from
-env.git_remote = 'git@github.com:mcs07/cdeweb.git'
+env.git_remote = 'git@github_cdeweb:mcs07/cdeweb.git'
 # Database user
 env.database_user = env.app_name
 # Database name
