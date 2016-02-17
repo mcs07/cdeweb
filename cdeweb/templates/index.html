@@ -3,28 +3,43 @@
 {% block title %}ChemDataExtractor{% endblock %}
 
 {% block content %}
-  <header class="welcome-message">
-     <div class="row">
+  <section class="section section-invert">
+    <div class="container">
+      <div class="row">
         <div class="col-xs-12 text-center">
-            <h3>Automatically extract chemical information from scientific documents</h3>
-            <a href="{{ url_for('about') }}" class="btn btn-lg btn-welcome">Learn more</a>
+          <h3>Automatically extract chemical information from scientific documents</h3>
+          <a href="{{ url_for('about') }}" class="btn btn-lg btn-invert">Learn more</a>
         </div>
-     </div>
-  </header>
-  <div class="container">
-    <div class="row feature-display">
-      <div class="col-sm-4 text-center">
-        <img class="img-feature" src="{{ url_for('static', filename='img/document2.svg') }}">
-        <p>Extract chemical information from journal articles, theses and patents.</p>
-      </div>
-      <div class="col-sm-4 text-center">
-        <img class="img-feature" src="{{ url_for('static', filename='img/chem.svg') }}">
-        <p>Resolve chemical names, abbreviations and identifiers.</p>
-      </div>
-      <div class="col-sm-4 text-center">
-        <img class="img-feature" src="{{ url_for('static', filename='img/graph2.svg') }}">
-        <p>Extract experimental properties and spectroscopy.</p>
       </div>
     </div>
-  </div>
+  </section>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/document2.svg') }}">
+          <div class="feature-display">Extract chemical information from journal articles, theses and patents.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/chem.svg') }}">
+          <div class="feature-display">Resolve chemical names, abbreviations and identifiers.</div>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-feature" src="{{ url_for('static', filename='img/graph2.svg') }}">
+          <div class="feature-display">Extract experimental properties and spectroscopy.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h2>Try our online demo to see it in action</h2>
+          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
 {% endblock %}

@@ -6,12 +6,14 @@ html {
 body {
   font-family: "proxima-nova", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 16px;
-  margin-bottom: 270px;
   color: #444;
 }
 
-h1, h2, h3, h4 {
+h1, h2 {
   font-weight: 300;
+}
+
+h1, h2, h3, h4 {
   margin-bottom: 20px;
 }
 
@@ -28,14 +30,20 @@ a:hover {
   color: #337ab7;
 }
 
+pre {
+  display: block;
+  padding: 15px;
+  border: none;
+  border-radius: 0
+}
+
 .container {
   max-width: 1000px;
 }
 
 .cde-logo {
-  margin-right: 5px;
-  margin-top: 18px;
-  height: 42.53125px;
+  padding: 17px 5px 17px 0;
+  height: 76px;
 }
 
 .navbar {
@@ -45,6 +53,7 @@ a:hover {
 .navbar-default {
   background-color: #fff;
   border-color: #e7e7e7;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
@@ -72,6 +81,25 @@ a:hover {
   padding-bottom: 28px;
 }
 
+.navbar-toggle {
+  margin-bottom: 21px;
+  margin-top: 21px;
+}
+
+@media (min-width:768px) and (max-width:992px) {
+  .cde-logo {
+    padding: 20px 5px 20px 0;
+  }
+
+  .navbar-brand {
+    font-size: 20px;
+  }
+
+  .navbar-nav>li>a {
+    font-size: 12px;
+  }
+}
+
 .label {
   font-weight: normal;
   font-size: 92%;
@@ -93,14 +121,30 @@ a:hover {
   padding: 6px 15px
 }
 
-.welcome-message {
-  padding: 50px 0 40px;
-  color: #fff;
-  background-color: #488eea;
-  margin: -20px 0 40px;
+.section {
+  padding: 50px 0;
 }
 
-.btn-welcome {
+.navbar + .section {
+  margin-top: -20px;
+}
+
+.section-default {
+  /*border-bottom: 1px solid #ddd;*/
+}
+
+.section-alternate {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  background: #fafafa;
+}
+
+.section-invert {
+  color: #fff;
+  background-color: #488eea;
+}
+
+.btn-invert {
   color: #488eea;
   background-color: #fff;
   border-color: #fff;
@@ -118,10 +162,16 @@ a:hover {
 
 .feature-display {
   font-size: 18px;
+  margin: 10px 0 20px 0;
 }
 
 .img-feature {
   height: 100px;
+}
+
+.img-about {
+  padding-top: 70px;
+  width: 100px;
 }
 
 header h3 {
@@ -131,18 +181,14 @@ header h3 {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding-top: 50px;
+  padding: 50px 0;
   color: #4d5152;
   background-color: #2e3234;
-  height: 250px;
 }
 
 footer h2 {
   font-size: 22px;
-  margin: 0;
+  margin: 0 0 17px 0;
 }
 
 footer h2 a {
@@ -151,12 +197,6 @@ footer h2 a {
 
 footer h2 a:hover {
   text-decoration: none;
-}
-
-footer .cde-logo {
-  margin-right: 5px;
-  margin-top: -3px;
-  height: 36px;
 }
 
 footer h3 {
@@ -169,7 +209,7 @@ footer h3 {
 
 footer ul {
   list-style-type: none;
-  margin: 0;
+  margin: 0 0 20px 0;
   padding: 0;
 }
 
@@ -217,6 +257,10 @@ input[readonly] {
   cursor: text !important;
 }
 
+.page-container {
+  min-height: 700px;
+}
+
 .label-primary {
   background-color: #498feb;
 }
@@ -241,4 +285,28 @@ th {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background: #fafafa;
+}
+
+.releases {
+  border-top: 1px solid #ddd;
+}
+
+.release-meta {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: right;
+}
+
+.release-body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-left: 1px solid #ddd;
+}
+
+.release-body h3 {
+  margin-top: 0;
+}
+
+.release-date {
+  line-height: 26px;
 }

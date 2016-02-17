@@ -5,19 +5,119 @@
 {% block content %}
   <div class="container">
     <h1>About ChemDataExtractor</h1>
-    <div class="row">
-      <div class="col-sm-8">
-        <p>ChemDataExtractor is a tool for automatically extracting chemical information from scientific documents.</p>
+  </div>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <p class="feature-display">ChemDataExtractor is a tool for automatically extracting chemical information from scientific documents.</p>
 
-        <p>Give it a journal article, and it will extract chemical names, properties, and spectra from the text so they
-        can be imported into a spreadsheet or a database.</p>
+          <p class="feature-display">Give it a journal article, and it will extract chemical names, properties, and spectra from the text so they
+          can be imported into a database or spreadsheet.</p>
 
-        <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it out {{utils.icon('chevron-right')}}</a>
-      </div>
-      <div class="col-sm-4">
-        <!--<img class="img-feature" src="{{ url_for('static', filename='img/document2.svg') }}">-->
-        <!--<img class="img-feature" src="{{ url_for('static', filename='img/chem.svg') }}">-->
+        </div>
+        <div class="col-sm-4 text-center">
+{#          <img class="img-about" src="{{ url_for('static', filename='img/document2.svg') }}">#}
+{#          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>#}
+{#          <img class="img-about" src="{{ url_for('static', filename='img/chem.svg') }}">#}
+        </div>
       </div>
     </div>
-  </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 text-center">
+          <img class="img-about" src="{{ url_for('static', filename='img/document2.svg') }}">
+{#          <img class="img-about" src="{{ url_for('static', filename='img/chem.svg') }}">#}
+        </div>
+        <div class="col-sm-8">
+          <h3>Natural language processing</h3>
+          <p class="feature-display">
+            ChemDataExtractor uses state-of-the-art natural language processing algorithms to interpret the English
+            language text that makes up the majority of scientific documents.
+          </p>
+          <p class="feature-display">
+            Machine-learning methods such as conditional random fields are used in combination with custom dictionaries
+            and rule-based parsing grammars to extract valuable information from each sentence.
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>Chemical intelligence</h3>
+          <p class="feature-display">
+            By processing each document as a whole, ChemDataExtractor is able to resolve data interdependencies, for
+            example to determine when different names and identifiers refer to the same compound.
+          </p>
+          <p class="feature-display">
+            As a result, it produces a full compound record containing identifiers, properties, and spectra for each
+            unique chemical entity in the document.
+          </p>
+
+        </div>
+        <div class="col-sm-4 text-center">
+{#          <img class="img-about" src="{{ url_for('static', filename='img/document2.svg') }}">#}
+{#          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>#}
+          <img class="img-about" src="{{ url_for('static', filename='img/chem.svg') }}">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 text-center">
+          <img class="img-about" src="{{ url_for('static', filename='img/table.svg') }}">
+        </div>
+        <div class="col-sm-8">
+          <h3>Table processing</h3>
+          <p class="feature-display">
+            Huge amounts of important data are locked away in document tables.
+          </p>
+          <p class="feature-display">
+            ChemDataExtractor provides specialized parsers that extract data from tables and integrate it with
+            information from the rest of the document.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="section section-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <h3>Open source</h3>
+          <p class="feature-display">
+            ChemDataExtractor is available as an open source python package that you can download and use for free.
+          </p>
+          <p class="feature-display">
+            Check out the <a href="/docs">documentation</a> for help getting started.
+          </p>
+        </div>
+        <div class="col-sm-4 text-center">
+          <img class="img-about" src="{{ url_for('static', filename='img/terminal.svg') }}">
+{#          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>#}
+{#          <img class="img-about" src="{{ url_for('static', filename='img/chem.svg') }}">#}
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-alternate">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <h2>Try our online demo to see it in action</h2>
+          <a href="{{ url_for('demo') }}" class="btn btn-lg btn-primary">Try it now {{utils.icon('chevron-right')}}</a>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
