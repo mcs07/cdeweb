@@ -33,3 +33,8 @@ class CdeJob(db.Model):
     file = db.Column(db.String, nullable=True)
     url = db.Column(db.String, nullable=True)
     result = db.Column(JSONB, nullable=True)
+
+    @property
+    def status(self):
+        from .tasks import celery
+        return celery.AsyncResult(self.job_id).status

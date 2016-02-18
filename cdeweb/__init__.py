@@ -22,6 +22,7 @@ from flask_mail import Mail
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_moment import Moment
+from flask_restplus import Api
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -44,9 +45,8 @@ def make_celery(app):
 
 def register_blueprints(app):
     """Import and register all blueprints."""
-    # from .eg import eg_bp
-    # app.register_blueprint(eg_bp, url_prefix='/eg')
-    pass
+    from .api import api_bp
+    app.register_blueprint(api_bp, url_prefix='/api')
 
 
 app = Flask(__name__, instance_relative_config=True)
@@ -66,8 +66,6 @@ moment = Moment(app)
 
 # Register blueprints
 register_blueprints(app)
-
-#setup_api(app)
 
 
 # Import view functions now app is created
