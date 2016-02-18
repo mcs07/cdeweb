@@ -29,7 +29,7 @@ api = Api(
     api_bp,
     version=b'1.0',
     title=b'ChemDataExtractor REST API',
-    description=b'A web service for programmatically uploading documents to be processed using ChemDataExtractor on our servers.',
+    description=b'A web service for programmatically uploading documents to be processed using ChemDataExtractor on our servers.\n\n All endpoints are at constructed by appending to http://chemdataextractor.org/api'
 )
 
 

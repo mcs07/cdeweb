@@ -74,10 +74,10 @@ class CdeJobSubmitResource(Resource):
 @jobs.route('/<string:job_id>')
 @api.doc(params={'job_id': 'The job ID'})  # responses={404: 'Job not found'},
 class CdeJobResource(Resource):
-    """View the status and results of specific ChemDataExtractor job."""
+    """View the status and results of a specific ChemDataExtractor job."""
 
-    @api.doc(description='View the status and results of specific ChemDataExtractor job.')
+    @api.doc(description='View the status and results of a specific ChemDataExtractor job.')
     @api.marshal_with(cdejob_schema)
     def get(self, job_id):
-        """Fetch a results of a job."""
+        """Get the results of a job."""
         return CdeJob.query.filter_by(job_id=job_id).first_or_404()
