@@ -425,10 +425,16 @@
 
 {% block content %}
   <div class="container page-container">
-    <h1>Online Demo Results</h1>
+    <div class="row">
+      <div class="col-sm-7">
+        <h1>Online Demo Results</h1>
+      </div>
+      <div class="col-sm-5 text-right">
+        <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}">{{ utils.icon('link') }} {{ job.job_id }}</a>
+      </div>
+    </div>
     <div class="row">
       <div class="col-sm-12">
-        {{ job.task_id }}
         {% if not task.failed() and job.result %}
           <div>
             <ul class="nav nav-tabs" role="tablist">
@@ -460,15 +466,12 @@
 
         {% elif task.failed() %}
           <p>Job failed</p>
-          <p>Task ID: {{ job.task_id }}</p>
+          <p>Job ID: {{ job.job_id }}</p>
         {% else %}
           <p>Please wait, ChemDataExtractor is running...</p>
           <div class="progress">
             <div class="progress-bar progress-bar-striped active" role="progressbar" style="width: 100%"></div>
           </div>
-          <script type="text/javascript">
-            setInterval('window.location.reload()', 5000);
-          </script>
         {% endif %}
       </div>
     </div>
@@ -477,6 +480,9 @@
 
 {% block scripts %}
   {{ super() }}
+  <script>
+    var jobId = '{{ job.job_id }}';
+  </script>
   <script src="{{ url_for('static', filename='js/results.js') }}"></script>
 {%- endblock scripts %}
 

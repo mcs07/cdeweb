@@ -22,11 +22,11 @@ p {
   margin-bottom: 20px;
 }
 
-a {
+a, .btn-link {
   color: #498feb;
 }
 
-a:hover {
+a:hover, .btn-link:hover {
   color: #337ab7;
 }
 
