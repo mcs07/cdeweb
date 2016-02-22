@@ -119,6 +119,7 @@ def results(result_id):
             else:
                 important_records.append(record)
         important_records = natsort.natsorted(important_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
+        other_records = natsort.natsorted(other_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
     return render_template('results.html', task=task, job=job, important_records=important_records, other_records=other_records)
 
 

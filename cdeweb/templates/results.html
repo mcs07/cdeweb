@@ -451,9 +451,21 @@
                 {% for record in important_records %}
                   {{ display_compound(record, loop.index0) }}
                 {% endfor %}
-                {% for record in other_records %}
-                  {{ display_compound(record, loop.index0) }}
-                {% endfor %}
+
+
+                {% if important_records %}
+                  <div class="text-center show-other">
+                    <a class="btn btn-link btn-lg" role="button" data-toggle="collapse" href="#other-records" aria-expanded="false" aria-controls="other-records">
+                      Show additional names
+                    </a>
+                  </div>
+                {% endif %}
+
+                <div{% if important_records %} class="collapse"{% endif %} id="other-records">
+                  {% for record in other_records %}
+                    {{ display_compound(record, loop.index0) }}
+                  {% endfor %}
+                </div>
               </div>
               <div role="tabpanel" class="tab-pane" id="tab-json">
                 <pre><code>{{ job.result | tojson(indent=2, ensure_ascii=False) }}</code></pre>

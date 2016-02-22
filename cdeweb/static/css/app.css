@@ -31,6 +31,7 @@ a:hover, .btn-link:hover {
 }
 
 pre {
+  color: #666;
   display: block;
   padding: 15px;
   border: none;
@@ -291,6 +292,9 @@ th {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background: #fafafa;
+}
+.show-other {
+  margin-bottom: 20px;
 }
 
 .releases {
