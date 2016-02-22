@@ -108,7 +108,7 @@ def demo():
 @app.route('/results/<result_id>')
 def results(result_id):
     task = celery.AsyncResult(result_id)
-    job = CdeJob.query.filter_by(job_id=result_id).first()
+    job = CdeJob.query.filter_by(job_id=result_id).first_or_404()
     # Divide the results:
     important_records = []
     other_records = []
