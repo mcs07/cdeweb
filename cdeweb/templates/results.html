@@ -435,7 +435,7 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        {% if not task.failed() and job.result %}
+        {% if not task.failed() and job.result is not none %}
           <div>
             <ul class="nav nav-tabs" role="tablist">
 {#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
