@@ -36,7 +36,7 @@
         <div role="tabpanel" class="tab-pane" id="tab-text">
           <form class="form" method="POST">
             <div class="form-group">
-              <textarea id="input-text" name="input-text" class="form-control"></textarea>
+              <textarea id="input-text" name="input-text" class="form-control" placeholder="Type or paste text here..."></textarea>
             </div>
             <div class="form-group">
               <button id="submit-text" class="btn btn-lg btn-primary">Submit</button>
@@ -47,7 +47,14 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="tab-url">
-          Coming soon...
+          <form class="form" method="POST">
+            <div class="form-group">
+              <input type="text" id="input-url" name="input-url" class="form-control" placeholder="http://">
+            </div>
+            <div class="form-group">
+              <button id="submit-url" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -15,8 +15,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import logging
 import os
+import re
 import uuid
 
+import requests
 from flask import render_template, request, url_for, redirect, abort, flash
 from flask_mail import Message
 import natsort
@@ -81,6 +83,39 @@ def demo():
                 abort(400, 'Disallowed file extension!')
             filename = '%s.%s' % (job_id, extension)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            cde_job = CdeJob(file=filename, job_id=job_id)
+            db.session.add(cde_job)
+            db.session.commit()
+            async_result = tasks.run_cde.apply_async([cde_job.id], task_id=job_id)
+            return redirect(url_for('results', result_id=async_result.id))
+        elif 'input-url' in request.form:
+            url = request.form['input-url']
+            r = requests.get(url)
+            extension = None
+            if 'Content-Type' in r.headers:
+                t = r.headers['Content-Type']
+                if 'text/html' in t:
+                    extension = 'html'
+                elif '/xml' in t:
+                    extension = 'xml'
+                elif '/pdf' in t:
+                    extension = 'pdf'
+            elif 'Content-Disposition' in r.headers:
+                d = r.headers['Content-Disposition']
+                m = re.search('filename=(.+)\.([^\.]+)', d)
+                if m:
+                    extension = m.group(2)
+            else:
+                m = re.search('\.([a-z]+)$', url)
+                if m:
+                    extension = m.group(1)
+            if not extension:
+                abort(400, 'Could not determine file type!')
+            if extension not in app.config['ALLOWED_EXTENSIONS']:
+                abort(400, 'Disallowed file extension!')
+            filename = '%s.%s' % (job_id, extension)
+            with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'wb') as f:
+                f.write(r.content)
             cde_job = CdeJob(file=filename, job_id=job_id)
             db.session.add(cde_job)
             db.session.commit()
