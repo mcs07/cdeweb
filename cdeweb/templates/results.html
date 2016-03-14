@@ -441,6 +441,7 @@
 {#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>
               {% if job.biblio %}<li role="presentation"><a href="#tab-meta" role="tab" data-toggle="tab">Metadata</a></li>{% endif %}
+              {% if 'abbreviations' in job.abbreviations %}<li role="presentation"><a href="#tab-abbrev" role="tab" data-toggle="tab">Abbreviations</a></li>{% endif %}
               <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">JSON</a></li>
             </ul>
             <div class="tab-content">
@@ -492,6 +493,22 @@
                                 {{ value }}
                               {% endif %}
                             </td>
+                          </tr>
+                        {% endfor %}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+              {% if 'abbreviations' in job.abbreviations %}
+                <div role="tabpanel" class="tab-pane" id="tab-abbrev">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table class="table table-bordered">
+                        {% for abbrev, full, entity in job.abbreviations['abbreviations'] %}
+                          <tr>
+                            <th class="col-xs-3">{{ abbrev | join(' ') }}</th>
+                            <td class="col-xs-9">{{ full | join(' ') }}</td>
                           </tr>
                         {% endfor %}
                       </table>

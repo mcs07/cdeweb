@@ -42,4 +42,5 @@ def run_cde(job_id):
     with open(filepath) as f:
         document = Document.from_file(f, fname=cde_job.file)
     cde_job.result = [r.to_primitive() for r in document.records]
+    cde_job.abbreviations = {'abbreviations': document.abbreviation_definitions}
     db.session.commit()
