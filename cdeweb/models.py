@@ -32,6 +32,7 @@ class CdeJob(db.Model):
     text = db.Column(db.String, nullable=True)
     file = db.Column(db.String, nullable=True)
     url = db.Column(db.String, nullable=True)
+    biblio = db.Column(JSONB, nullable=True)
     result = db.Column(JSONB, nullable=True)
 
     @property

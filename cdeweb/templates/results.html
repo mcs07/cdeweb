@@ -440,6 +440,7 @@
             <ul class="nav nav-tabs" role="tablist">
 {#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>
+              {% if job.biblio %}<li role="presentation"><a href="#tab-meta" role="tab" data-toggle="tab">Metadata</a></li>{% endif %}
               <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">JSON</a></li>
             </ul>
             <div class="tab-content">
@@ -462,20 +463,44 @@
                 {% endif %}
 
                 <div{% if important_records %} class="collapse"{% endif %} id="other-records">
-                  <p>
-                    These additional chemical names were found in the document but were not found to have any associated spectra or properties.
-                    There is a higher chance of false positives amongst these names.
-                  </p>
+                  {% if important_records %}
+                    <p>
+                      These additional chemical names were found in the document but were not found to have any associated spectra or properties.
+                      There is a higher chance of false positives amongst these names.
+                    </p>
+                  {% endif %}
                   {% for record in other_records %}
                     {{ display_compound(record, loop.index0) }}
                   {% endfor %}
                 </div>
+                {% if not important_records and not other_records %}
+                  <p>No results found!</p>
+                {% endif %}
               </div>
+              {% if job.biblio %}
+                <div role="tabpanel" class="tab-pane" id="tab-meta">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <table class="table table-bordered">
+                        {% for key, value in job.biblio.iteritems() %}
+                          <tr>
+                            <th class="col-xs-3">{{ key }}</th>
+                            <td class="col-xs-9">
+                              {% if key in ['authors', 'issn', 'coden'] %}
+                                {{ value | join(', ') }}
+                              {% else %}
+                                {{ value }}
+                              {% endif %}
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
               <div role="tabpanel" class="tab-pane" id="tab-json">
                 <pre><code>{{ job.result | tojson(indent=2, ensure_ascii=False) }}</code></pre>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="tab-url">
-
               </div>
             </div>
           </div>
