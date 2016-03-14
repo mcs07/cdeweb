@@ -462,6 +462,10 @@
                 {% endif %}
 
                 <div{% if important_records %} class="collapse"{% endif %} id="other-records">
+                  <p>
+                    These additional chemical names were found in the document but were not found to have any associated spectra or properties.
+                    There is a higher chance of false positives amongst these names.
+                  </p>
                   {% for record in other_records %}
                     {{ display_compound(record, loop.index0) }}
                   {% endfor %}
