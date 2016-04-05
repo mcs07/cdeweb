@@ -28,6 +28,7 @@ log = logging.getLogger(__name__)
 manager = Manager(app)
 
 logging.basicConfig(level=logging.DEBUG)
+logging.getLogger('dicttoxml').setLevel(logging.WARN)
 
 
 #: Perform database migrations

@@ -437,6 +437,20 @@
       <div class="col-sm-12">
         {% if not task.failed() and job.result is not none %}
           <div>
+            <div class="pull-right">
+              <div class="btn-group">
+                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}" class="btn btn-default">Download Excel File</a>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}">Download Excel File</a></li>
+                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id) }}">Download JSON File</a></li>
+                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xml') }}">Download XML File</a></li>
+                </ul>
+              </div>
+            </div>
             <ul class="nav nav-tabs" role="tablist">
 {#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>

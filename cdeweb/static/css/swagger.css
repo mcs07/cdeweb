@@ -138,7 +138,7 @@
 }
 .swagger-section .swagger-ui-wrap p {
   line-height: 1.4em;
-  padding: 0 0 10px;
+  /*padding: 0 0 10px;*/
   color: #333333;
 }
 .swagger-section .swagger-ui-wrap q:before,

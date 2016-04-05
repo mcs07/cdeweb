@@ -17,7 +17,7 @@ import os
 import uuid
 
 import six
-from flask import current_app
+from flask import current_app, make_response
 from flask_restplus import Resource, abort, fields
 import werkzeug
 
@@ -41,8 +41,11 @@ cdejob_schema = api.model('CdeJob', {
 })
 
 
-parser = api.parser()
-parser.add_argument('file', type=werkzeug.datastructures.FileStorage, required=True, help='The input file.', location='files')
+submit_parser = api.parser()
+submit_parser.add_argument('file', type=werkzeug.datastructures.FileStorage, required=True, help='The input file.', location='files')
+
+result_parser = api.parser()
+result_parser.add_argument('format', help='Response format', location='query', choices=['json', 'xml', 'xlsx'])
 
 
 @jobs.route('/')
@@ -50,11 +53,11 @@ parser.add_argument('file', type=werkzeug.datastructures.FileStorage, required=T
 class CdeJobSubmitResource(Resource):
     """Submit a new ChemDataExtractor job and get the job ID."""
 
-    @api.doc(description='Submit a new ChemDataExtractor job.', parser=parser)
+    @api.doc(description='Submit a new ChemDataExtractor job.', parser=submit_parser)
     @api.marshal_with(cdejob_schema, code=201)
     def post(self):
         """Submit a new job."""
-        args = parser.parse_args()
+        args = submit_parser.parse_args()
         file = args['file']
         job_id = six.text_type(uuid.uuid4())
         if '.' not in file.filename:
@@ -76,7 +79,7 @@ class CdeJobSubmitResource(Resource):
 class CdeJobResource(Resource):
     """View the status and results of a specific ChemDataExtractor job."""
 
-    @api.doc(description='View the status and results of a specific ChemDataExtractor job.')
+    @api.doc(description='View the status and results of a specific ChemDataExtractor job. \n\n Use the `Accept` header or the `format` query parameter to specify JSON, XML, or Excel response format.', parser=result_parser)
     @api.marshal_with(cdejob_schema)
     def get(self, job_id):
         """Get the results of a job."""
