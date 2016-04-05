@@ -48,6 +48,11 @@ def download():
     return render_template('download.html')
 
 
+@app.route('/evaluation')
+def evaluation():
+    return render_template('evaluation.html')
+
+
 @app.route('/citing')
 def citing():
     return render_template('citing.html')

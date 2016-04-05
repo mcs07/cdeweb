@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Evaluation | ChemDataExtractor{% endblock %}
+
+{% block content %}
+  <div class="container page-container">
+    <h1>Evaluation</h1>
+    <p>ChemDataExtractor performance was evaluated as part of the following publication:</p>
+    <div class="well">
+      <p>M.C. Swain and J.M. Cole. "ChemDataExtractor: A toolkit for automated extraction of chemical information from the scientific literature" Submitted (2016).</p>
+    </div>
+
+    <h2>Evaluation data files</h2>
+    <div class="alert alert-danger"><strong>Note</strong>: Public downloads are currently disabled, pending paper acceptance.</div>
+    <h3>Evaluation articles</h3>
+    <p>A collection of 50 open access journal articles that were used in the evaluation.</p>
+    <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+    <hr>
+    <h3>Gold standard extracted data</h3>
+    <p>Manually extracted chemical information from the evaluation articles, in JSON format.</p>
+    <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+    <hr>
+    <h3>ChemDataExtractor output</h3>
+    <p>Output from applying ChemDataExtractor to the evaluation articles, in JSON format.</p>
+    <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+    <hr>
+  </div>
+{% endblock %}
