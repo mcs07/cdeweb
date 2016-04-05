@@ -19,3 +19,4 @@ requests>=2.9.1
 six>=1.10.0
 SQLAlchemy>=1.0.11
 WTForms>=2.1
+XlsxWriter>=0.8.4
