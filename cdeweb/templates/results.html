@@ -452,24 +452,25 @@
               </div>
             </div>
             <ul class="nav nav-tabs" role="tablist">
-{#              <li role="presentation"><a href="#tab-document" role="tab" data-toggle="tab">Document</a></li>#}
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>
-              {% if job.biblio %}<li role="presentation"><a href="#tab-meta" role="tab" data-toggle="tab">Metadata</a></li>{% endif %}
-              {% if 'abbreviations' in job.abbreviations %}<li role="presentation"><a href="#tab-abbrev" role="tab" data-toggle="tab">Abbreviations</a></li>{% endif %}
+              <li role="presentation"><a href="#tab-meta" role="tab" data-toggle="tab">Metadata</a></li>
+              <li role="presentation"><a href="#tab-abbrev" role="tab" data-toggle="tab">Abbreviations</a></li>
               <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">JSON</a></li>
             </ul>
             <div class="tab-content">
-{#              <div role="tabpanel" class="tab-pane" id="tab-document">#}
-{#                <p class="alert alert-info">This is a simplified model of the input document that is used by ChemDataExtractor to interpret chemical information.</p>#}
-{#                {{ document._repr_html_() | safe }}#}
-{#              </div>#}
+              {% set has_important = False %}
+              {% set has_other = False %}
               <div role="tabpanel" class="tab-pane active" id="tab-records">
-                {% for record in important_records %}
-                  {{ display_compound(record, loop.index0) }}
+                {% for result in job.result %}
+                  {% for record in result['records'] %}
+                    {% if not record.keys() == ['names'] and not record.keys() == ['labels'] %}
+                      {% set has_important = True %}
+                      {{ display_compound(record, loop.index0) }}
+                    {% endif %}
+                  {% endfor %}
                 {% endfor %}
 
-
-                {% if important_records %}
+                {% if has_important %}
                   <div class="text-center show-other">
                     <a class="btn btn-link btn-lg" role="button" data-toggle="collapse" href="#other-records" aria-expanded="false" aria-controls="other-records">
                       Show additional names
@@ -477,27 +478,32 @@
                   </div>
                 {% endif %}
 
-                <div{% if important_records %} class="collapse"{% endif %} id="other-records">
-                  {% if important_records %}
+                <div{% if has_important %} class="collapse"{% endif %} id="other-records">
+                  {% if has_important %}
                     <p>
                       These additional chemical names were found in the document but were not found to have any associated spectra or properties.
                       There is a higher chance of false positives amongst these names.
                     </p>
                   {% endif %}
-                  {% for record in other_records %}
-                    {{ display_compound(record, loop.index0) }}
+                  {% for result in job.result %}
+                    {% for record in result['records'] %}
+                      {% if record.keys() == ['names'] or record.keys() == ['labels'] %}
+                        {% set has_other = True %}
+                        {{ display_compound(record, loop.index0) }}
+                      {% endif %}
+                    {% endfor %}
                   {% endfor %}
                 </div>
-                {% if not important_records and not other_records %}
+                {% if not has_important and not has_other %}
                   <p>No results found!</p>
                 {% endif %}
               </div>
-              {% if job.biblio %}
-                <div role="tabpanel" class="tab-pane" id="tab-meta">
+              <div role="tabpanel" class="tab-pane" id="tab-meta">
+                {% for result in job.result %}
                   <div class="row">
                     <div class="col-md-12">
                       <table class="table table-bordered">
-                        {% for key, value in job.biblio.iteritems() %}
+                        {% for key, value in result['biblio'].iteritems() %}
                           <tr>
                             <th class="col-xs-3">{{ key }}</th>
                             <td class="col-xs-9">
@@ -512,14 +518,14 @@
                       </table>
                     </div>
                   </div>
-                </div>
-              {% endif %}
-              {% if 'abbreviations' in job.abbreviations %}
-                <div role="tabpanel" class="tab-pane" id="tab-abbrev">
+                {% endfor %}
+              </div>
+              <div role="tabpanel" class="tab-pane" id="tab-abbrev">
+                {% for result in job.result %}
                   <div class="row">
                     <div class="col-md-12">
                       <table class="table table-bordered">
-                        {% for abbrev, full, entity in job.abbreviations['abbreviations'] %}
+                        {% for abbrev, full, entity in result['abbreviations'] %}
                           <tr>
                             <th class="col-xs-3">{{ abbrev | join(' ') }}</th>
                             <td class="col-xs-9">{{ full | join(' ') }}</td>
@@ -528,8 +534,8 @@
                       </table>
                     </div>
                   </div>
-                </div>
-              {% endif %}
+                {% endfor %}
+              </div>
               <div role="tabpanel" class="tab-pane" id="tab-json">
                 <pre><code>{{ job.result | tojson(indent=2, ensure_ascii=False) }}</code></pre>
               </div>

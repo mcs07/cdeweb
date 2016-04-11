@@ -150,17 +150,17 @@ def results(result_id):
     task = celery.AsyncResult(result_id)
     job = CdeJob.query.filter_by(job_id=result_id).first_or_404()
     # Divide the results:
-    important_records = []
-    other_records = []
-    if job.result:
-        for record in job.result:
-            if record.keys() == ['names'] or record.keys() == ['labels']:
-                other_records.append(record)
-            else:
-                important_records.append(record)
-        important_records = natsort.natsorted(important_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
-        other_records = natsort.natsorted(other_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
-    return render_template('results.html', task=task, job=job, important_records=important_records, other_records=other_records)
+    # important_records = []
+    # other_records = []
+    # if job.result:
+    #     for record in job.result:
+    #         if record.keys() == ['names'] or record.keys() == ['labels']:
+    #             other_records.append(record)
+    #         else:
+    #             important_records.append(record)
+    #     important_records = natsort.natsorted(important_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
+    #     other_records = natsort.natsorted(other_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
+    return render_template('results.html', task=task, job=job)  # , important_records=important_records, other_records=other_records
 
 
 @app.route('/n2s/<name>')
