@@ -266,6 +266,7 @@ input[readonly] {
 
 .page-container {
   min-height: 700px;
+  margin-bottom: 40px;
 }
 
 .label-primary {
@@ -297,27 +298,28 @@ th {
   margin-bottom: 20px;
 }
 
-.releases {
+.downloads {
   border-top: 1px solid #ddd;
+  /*border-bottom: 1px solid #ddd;*/
 }
 
-.release-meta {
+.download-meta {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: right;
 }
 
-.release-body {
+.download-body {
   padding-top: 20px;
   padding-bottom: 20px;
   border-left: 1px solid #ddd;
 }
 
-.release-body h3 {
+.download-body h3 {
   margin-top: 0;
 }
 
-.release-date {
+.download-date {
   line-height: 26px;
 }
 

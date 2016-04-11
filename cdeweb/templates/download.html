@@ -4,18 +4,17 @@
 
 {% block content %}
   <div class="container page-container">
-    <h1>Download</h1>
+    <h1>Downloads</h1>
+    <h2>Releases</h2>
     <p>ChemDataExtractor is available to download as an open source python package.</p>
     <p>For help with installation and getting started, check out the <a href="/docs">documentation</a>.</p>
-
-    <h2>Releases</h2>
     <div class="alert alert-danger"><strong>Note</strong>: Public downloads are currently disabled, pending paper acceptance.</div>
-    <div class="releases">
-      <div class="row release">
-        <div class="col-sm-3 release-meta">
-{#          <div class="text-muted release-date">5th April 2016</div>#}
+    <div class="downloads">
+      <div class="row download">
+        <div class="col-sm-3 download-meta">
+          <div class="text-muted download-date">11th April 2016</div>
         </div>
-        <div class="col-sm-9 release-body">
+        <div class="col-sm-9 download-body">
           <span class="label label-success pull-right">Latest release</span>
           <h3>ChemDataExtractor v1.0.0</h3>
           <p>First release of ChemDataExtractor toolkit to accompany paper submission.</p>
@@ -23,5 +22,48 @@
         </div>
       </div>
     </div>
+    <h2 id="evaluation">Evaluation files</h2>
+    <p>ChemDataExtractor performance was evaluated as part of the following publication:</p>
+    <div class="well">
+      <p>M.C. Swain and J.M. Cole. "ChemDataExtractor: A toolkit for automated extraction of chemical information from the scientific literature" Submitted (2016).</p>
+    </div>
+    <div class="alert alert-danger"><strong>Note</strong>: Public downloads are currently disabled, pending paper acceptance.</div>
+    <div class="downloads">
+      <div class="row download">
+        <div class="col-sm-3 download-meta">
+          <div class="text-muted download-date">11th April 2016</div>
+        </div>
+        <div class="col-sm-9 download-body">
+{#          <span class="label label-success pull-right">Latest release</span>#}
+          <h3>Evaluation articles</h3>
+          <p>A collection of 50 open access journal articles that were used in the evaluation.</p>
+          <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+        </div>
+      </div>
+      <div class="row download">
+        <div class="col-sm-3 download-meta">
+          <div class="text-muted download-date">11th April 2016</div>
+        </div>
+        <div class="col-sm-9 download-body">
+{#          <span class="label label-success pull-right">Latest release</span>#}
+          <h3>Gold standard extracted data</h3>
+          <p>Manually extracted chemical information from the evaluation articles, in JSON format.</p>
+          <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+        </div>
+      </div>
+      <div class="row download">
+        <div class="col-sm-3 download-meta">
+          <div class="text-muted download-date">11th April 2016</div>
+        </div>
+        <div class="col-sm-9 download-body">
+{#          <span class="label label-success pull-right">Latest release</span>#}
+          <h3>ChemDataExtractor outputs</h3>
+          <p>Output from applying ChemDataExtractor to the evaluation articles, in JSON format.</p>
+          <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
   </div>
 {% endblock %}

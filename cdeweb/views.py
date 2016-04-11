@@ -50,7 +50,7 @@ def download():
 
 @app.route('/evaluation')
 def evaluation():
-    return render_template('evaluation.html')
+    return redirect(url_for('download'))
 
 
 @app.route('/citing')
