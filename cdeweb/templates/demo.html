@@ -6,8 +6,11 @@
   <div class="container page-container">
     <h1>Online Demo</h1>
     <p>Upload a file or enter some text to try ChemDataExtractor online.</p>
-    <p>For more features and customization, download the <a href="{{ url_for('download') }}">toolkit</a> or use the <a href="{{ url_for('api.doc') }}">REST API</a>.</p>
-
+    <p>
+      This demo has been configured to extract NMR, IR, and UV-vis spectra, as well as melting points, electrochemical
+      potentials, fluorescence lifetimes and quantum yields, along with compound identifiers and document metadata.
+      To add your own properties, download the <a href="{{ url_for('download') }}">toolkit</a>.
+    </p>
     <div>
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#tab-file" role="tab" data-toggle="tab">Upload file</a></li>
