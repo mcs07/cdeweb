@@ -17,10 +17,8 @@ import logging
 import os
 import zipfile
 
-from cde.doc.document import Document
-from cde.scrape.entity import DocumentEntity
-from cde.scrape.pub.nlm import NlmXmlDocument
-from cde.scrape.selector import Selector
+from chemdataextractor import Document
+from chemdataextractor.scrape import DocumentEntity, NlmXmlDocument, Selector
 from natsort import natsort
 
 from . import app, db, make_celery
