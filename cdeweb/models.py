@@ -29,11 +29,8 @@ class CdeJob(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     job_id = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    text = db.Column(db.String, nullable=True)
     file = db.Column(db.String, nullable=True)
     url = db.Column(db.String, nullable=True)
-    biblio = db.Column(JSONB, nullable=True)
-    abbreviations = db.Column(JSONB, nullable=True)
     result = db.Column(JSONB, nullable=True)
 
     @property
