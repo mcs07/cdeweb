@@ -44,21 +44,26 @@ def output_xlsx(data, code, headers):
     bio = BytesIO()
     writer = pd.ExcelWriter(bio, engine='xlsxwriter')
 
+    # Create sheet for document metadata
+    for result in data['result']:
+        result['biblio']['doc_id'] = result['biblio'].get('doi', result['biblio']['filename'])
+        result['biblio']['authors'] = ', '.join(result['biblio'].get('authors', []))
+    df = pd.DataFrame.from_records([result['biblio'] for result in data['result']])
+    df.to_excel(writer, sheet_name='documents', index=False)
+
     # Create sheets for compound identifiers
     data_view = []
     for result in data['result']:
-        doc_id = result['biblio'].get('doi', result['biblio']['filename'])
         for compound_num, record in enumerate(result.get('records', [])):
             for name in record.get('names', []):
-                data_view.append({'compound_id': compound_num, 'name': name, 'doc_id': doc_id})
+                data_view.append({'compound_id': compound_num, 'name': name, 'doc_id': result['biblio']['doc_id']})
     df = pd.DataFrame.from_records(data_view)
     df.to_excel(writer, sheet_name='compound_names', index=False)
     data_view = []
     for result in data['result']:
-        doc_id = result['biblio'].get('doi', result['biblio']['filename'])
         for compound_num, record in enumerate(result.get('records', [])):
             for label in record.get('labels', []):
-                data_view.append({'compound_id': compound_num, 'label': label, 'doc_id': doc_id})
+                data_view.append({'compound_id': compound_num, 'label': label, 'doc_id': result['biblio']['doc_id']})
     df = pd.DataFrame.from_records(data_view)
     df.to_excel(writer, sheet_name='compound_labels', index=False)
 
@@ -66,7 +71,6 @@ def output_xlsx(data, code, headers):
     for prop_type in ['ir_spectra', 'nmr_spectra', 'uvvis_spectra', 'melting_points', 'electrochemical_potentials', 'fluorescence_lifetimes', 'quantum_yields']:
         data_view = []
         for result in data['result']:
-            doc_id = result['biblio'].get('doi', result['biblio']['filename'])
             for compound_num, record in enumerate(result.get('records', [])):
                 for prop_num, prop in enumerate(record.get(prop_type, [])):
                     if 'peaks' in prop:
@@ -74,7 +78,7 @@ def output_xlsx(data, code, headers):
                             # Create row from peak value
                             row = copy.copy(peak)
                             # Add index numbers
-                            row['doc_id'] = doc_id
+                            row['doc_id'] = result['biblio']['doc_id']
                             row['compound_id'] = compound_num
                             row['compound_spectrum_id'] = prop_num
                             # Pull in parent values to row
@@ -88,7 +92,7 @@ def output_xlsx(data, code, headers):
                         # Create row from prop value
                         row = copy.copy(prop)
                         # Add index numbers
-                        row['doc_id'] = doc_id
+                        row['doc_id'] = result['biblio']['doc_id']
                         row['compound_id'] = compound_num
                         row['compound_property_id'] = prop_num
                         # Pull in parent values to row
