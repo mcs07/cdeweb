@@ -152,13 +152,14 @@ def results(result_id):
     has_result = False
     has_important = False
     has_other = False
-    for result in job.result:
-        for record in result['records']:
-            has_result = True
-            if record.keys() == ['names'] or record.keys() == ['labels']:
-                has_other = True
-            else:
-                has_important = True
+    if job.result:
+        for result in job.result:
+            for record in result['records']:
+                has_result = True
+                if record.keys() == ['names'] or record.keys() == ['labels']:
+                    has_other = True
+                else:
+                    has_important = True
 
     return render_template(
         'results.html',
