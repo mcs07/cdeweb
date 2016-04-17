@@ -4,47 +4,22 @@
 
 {% macro display_compound(record, index) %}
   <div id="compound-{{ index }}" class="panel panel-default panel-compound">
-{#    <div class="panel-heading">#}
-{#      <h3 class="panel-title">#}
-{#        {% if 'labels' in record %}#}
-{#          {% for label in record['labels'] %}#}
-{#            <span class="label label-success">Compound {{ label }}</span>#}
-{#          {% endfor %}#}
-{#        {% endif %}#}
-{#        {% if 'names' in record %}#}
-{#          {{ record['names'][0] }}#}
-{#        {% endif %}#}
-{#        {% if 'names' not in record and 'labels' not in record %}#}
-{#          Unknown compound#}
-{#        {% endif %}#}
-{#      </h3>#}
-{#    </div>#}
     <div class="panel-body">
       {% if 'labels' in record %}
-        {% for label in record['labels'] %}
-          <span class="label label-success pull-right">Compound {{ label }}</span>
-        {% endfor %}
+        <div class="label-container">
+          {% for label in record['labels'] %}
+            <span class="label label-success">Compound {{ label }}</span>
+          {% endfor %}
+        </div>
       {% endif %}
-
-
       {% if 'names' in record %}
-{#        <div><strong>Names</strong></div>#}
         {% for name in record['names'] %}
           <div>{{ name }}</div>
         {% endfor %}
-{#          <p>{{ record['names'] | join(', ') }}</p>#}
       {% endif %}
-
       {% if 'names' not in record and 'labels' not in record %}
         <div>Unknown compound</div>
       {% endif %}
-
-{#        {% if 'labels' in record %}#}
-{#          <div><strong>Labels</strong></div>#}
-{#          {% for label in record['labels'] %}#}
-{#            <div>{{ label }}</div>#}
-{#          {% endfor %}#}
-{#        {% endif %}#}
     </div>
     {% if 'nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'fluorescence_lifetimes' in record or 'quantum_yields' in record %}
       <ul class="list-group">
@@ -458,13 +433,10 @@
               <li role="presentation"><a href="#tab-json" role="tab" data-toggle="tab">JSON</a></li>
             </ul>
             <div class="tab-content">
-              {% set has_important = False %}
-              {% set has_other = False %}
               <div role="tabpanel" class="tab-pane active" id="tab-records">
                 {% for result in job.result %}
                   {% for record in result['records'] %}
                     {% if not record.keys() == ['names'] and not record.keys() == ['labels'] %}
-                      {% set has_important = True %}
                       {{ display_compound(record, loop.index0) }}
                     {% endif %}
                   {% endfor %}
@@ -479,22 +451,19 @@
                 {% endif %}
 
                 <div{% if has_important %} class="collapse"{% endif %} id="other-records">
-                  {% if has_important %}
-                    <p>
-                      These additional chemical names were found in the document but were not found to have any associated spectra or properties.
-                      There is a higher chance of false positives amongst these names.
-                    </p>
-                  {% endif %}
+                  <p>
+                    These chemical names were found in the document but were not found to have any associated spectra or properties.
+                    There is a higher chance of false positives amongst these names.
+                  </p>
                   {% for result in job.result %}
                     {% for record in result['records'] %}
                       {% if record.keys() == ['names'] or record.keys() == ['labels'] %}
-                        {% set has_other = True %}
                         {{ display_compound(record, loop.index0) }}
                       {% endif %}
                     {% endfor %}
                   {% endfor %}
                 </div>
-                {% if not has_important and not has_other %}
+                {% if not has_result %}
                   <p>No results found!</p>
                 {% endif %}
               </div>

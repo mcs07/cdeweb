@@ -294,6 +294,11 @@ th {
   border-top-right-radius: 4px;
   background: #fafafa;
 }
+
+.label-container {
+  margin-bottom: 10px;
+}
+
 .show-other {
   margin-bottom: 20px;
 }

@@ -75,7 +75,6 @@ def contact():
 
 @app.route('/demo', methods=['GET', 'POST'])
 def demo():
-
     if request.method == 'POST':
         log.info(request.form)
         job_id = six.text_type(uuid.uuid4())
@@ -149,18 +148,26 @@ def demo():
 def results(result_id):
     task = celery.AsyncResult(result_id)
     job = CdeJob.query.filter_by(job_id=result_id).first_or_404()
-    # Divide the results:
-    # important_records = []
-    # other_records = []
-    # if job.result:
-    #     for record in job.result:
-    #         if record.keys() == ['names'] or record.keys() == ['labels']:
-    #             other_records.append(record)
-    #         else:
-    #             important_records.append(record)
-    #     important_records = natsort.natsorted(important_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
-    #     other_records = natsort.natsorted(other_records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
-    return render_template('results.html', task=task, job=job)  # , important_records=important_records, other_records=other_records
+
+    has_result = False
+    has_important = False
+    has_other = False
+    for result in job.result:
+        for record in result['records']:
+            has_result = True
+            if record.keys() == ['names'] or record.keys() == ['labels']:
+                has_other = True
+            else:
+                has_important = True
+
+    return render_template(
+        'results.html',
+        task=task,
+        job=job,
+        has_result=has_result,
+        has_important=has_important,
+        has_other=has_other
+    )
 
 
 @app.route('/n2s/<name>')
