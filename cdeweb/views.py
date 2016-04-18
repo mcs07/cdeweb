@@ -154,7 +154,7 @@ def results(result_id):
     has_other = False
     if job.result:
         for result in job.result:
-            for record in result['records']:
+            for record in result.get('records', []):
                 has_result = True
                 if record.keys() == ['names'] or record.keys() == ['labels']:
                     has_other = True
