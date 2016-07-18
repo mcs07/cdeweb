@@ -82,7 +82,7 @@ def demo():
             file = request.files['input-file']
             if '.' not in file.filename:
                 abort(400, 'No file extension!')
-            extension = file.filename.rsplit('.', 1)[1]
+            extension = file.filename.rsplit('.', 1)[1].lower()
             if extension not in app.config['ALLOWED_EXTENSIONS']:
                 abort(400, 'Disallowed file extension!')
             filename = '%s.%s' % (job_id, extension)
@@ -108,11 +108,11 @@ def demo():
                 d = r.headers['Content-Disposition']
                 m = re.search('filename=(.+)\.([^\.]+)', d)
                 if m:
-                    extension = m.group(2)
+                    extension = m.group(2).lower()
             else:
                 m = re.search('\.([a-z]+)$', url)
                 if m:
-                    extension = m.group(1)
+                    extension = m.group(1).lower()
             if not extension:
                 abort(400, 'Could not determine file type!')
             if extension not in app.config['ALLOWED_EXTENSIONS']:
