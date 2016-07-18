@@ -130,7 +130,7 @@ def demo():
             input_text = request.form['input-text']
             filename = '%s.txt' % job_id
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'w') as f:
-                f.write(input_text)
+                f.write(input_text.encode('utf-8'))
             cde_job = CdeJob(file=filename, job_id=job_id)
             db.session.add(cde_job)
             db.session.commit()
