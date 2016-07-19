@@ -20,7 +20,7 @@
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="tab-file">
           <p>ChemDataExtractor can process any document in HTML, XML or PDF format.</p>
-          <p>This demo works best with the HTML version of journal articles published by the ACS and the RSC, and the "JATS" XML format used by PubMed Central. Support for PDF files is extremely limited.</p>
+          <p>This demo works best with the HTML version of journal articles published by the ACS and the RSC, and the JATS XML format used by PubMed Central. Support for PDF files is extremely limited.</p>
           <form class="form" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <div class="input-group">
@@ -50,6 +50,10 @@
         </div>
 
         <div role="tabpanel" class="tab-pane" id="tab-url">
+          <div class="alert alert-warning">
+            <strong>Warning:</strong>
+            This online demo is not able to process URLs for articles with a subscription paywall. Instead, choose "Save As..." while viewing the article and upload the file.
+          </div>
           <form class="form" method="POST">
             <div class="form-group">
               <input type="text" id="input-url" name="input-url" class="form-control" placeholder="http://">
