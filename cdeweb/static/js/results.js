@@ -18,4 +18,7 @@ $(function() {
     // Poll to check if job has completed
     getResults();
 
+    // Enable tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
 });

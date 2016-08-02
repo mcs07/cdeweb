@@ -118,7 +118,7 @@
         <table class="table table-bordered">
           {% if 'nucleus' in nmr %}
             <tr>
-              <th class="col-xs-3">nucleus</th>
+              <th class="col-xs-3">Nucleus</th>
               <td class="col-xs-9">{{ nmr['nucleus'] }}</td>
             </tr>
           {% endif %}
@@ -405,7 +405,7 @@
         <h1>Online Demo Results</h1>
       </div>
       <div class="col-sm-5 text-right">
-        <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}">{{ utils.icon('link') }} {{ job.job_id }}</a>
+        <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}" data-toggle="tooltip" data-placement="bottom" title="Permanent link to this page">{{ utils.icon('link') }} {{ job.job_id }}</a>
       </div>
     </div>
     <div class="row">
@@ -441,30 +441,29 @@
                     {% endif %}
                   {% endfor %}
                 {% endfor %}
-
-                {% if has_important %}
+                {% if not has_important %}
+                  <p>No records found!</p>
+                {% endif %}
+                {% if has_other %}
                   <div class="text-center show-other">
                     <a class="btn btn-link btn-lg" role="button" data-toggle="collapse" href="#other-records" aria-expanded="false" aria-controls="other-records">
                       Show additional names
                     </a>
                   </div>
-                {% endif %}
 
-                <div{% if has_important %} class="collapse"{% endif %} id="other-records">
-                  <p>
-                    These chemical names were found in the document but were not found to have any associated spectra or properties.
-                    There is a higher chance of false positives amongst these names.
-                  </p>
-                  {% for result in job.result %}
-                    {% for record in result['records'] %}
-                      {% if record.keys() == ['names'] or record.keys() == ['labels'] %}
-                        {{ display_compound(record, loop.index0) }}
-                      {% endif %}
+                  <div class="collapse" id="other-records">
+                    <p>
+                      These chemical names were found in the document but were not found to have any associated spectra or properties.
+                      There is a higher chance of false positives amongst these names.
+                    </p>
+                    {% for result in job.result %}
+                      {% for record in result['records'] %}
+                        {% if record.keys() == ['names'] or record.keys() == ['labels'] %}
+                          {{ display_compound(record, loop.index0) }}
+                        {% endif %}
+                      {% endfor %}
                     {% endfor %}
-                  {% endfor %}
-                </div>
-                {% if not has_result %}
-                  <p>No results found!</p>
+                  </div>
                 {% endif %}
               </div>
               <div role="tabpanel" class="tab-pane" id="tab-meta">
