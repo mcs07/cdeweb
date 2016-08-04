@@ -63,7 +63,7 @@ def setup():
     require.postgres.server()
     rabbitmq.server()
     require.nginx.server()
-    require.deb.packages(['libxml2-dev', 'libxslt1-dev', 'python-dev'])
+    require.deb.packages(['libxml2-dev', 'libxslt1-dev', 'python-dev', 'libffi-dev', 'zlib1g-dev', 'libjpeg-dev'])
     setup_postgres()
     setup_rabbitmq()
 
