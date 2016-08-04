@@ -5,21 +5,37 @@
 {% macro display_compound(record, index) %}
   <div id="compound-{{ index }}" class="panel panel-default panel-compound">
     <div class="panel-body">
-      {% if 'labels' in record %}
-        <div class="label-container">
-          {% for label in record['labels'] %}
-            <span class="label label-success">Compound {{ label }}</span>
-          {% endfor %}
-        </div>
+      {% if 'smiles' in record %}
+        <img class="compound-img" src="{{ url_for('depict', smiles=record['smiles']) }}">
       {% endif %}
-      {% if 'names' in record %}
-        {% for name in record['names'] %}
-          <div>{{ name }}</div>
-        {% endfor %}
-      {% endif %}
-      {% if 'names' not in record and 'labels' not in record %}
-        <div>Unknown compound</div>
-      {% endif %}
+      <div class="compound-meta{% if 'smiles' in record %} has-img{% endif %}">
+        {% if 'names' in record %}
+          <div class="name-container">
+            {% for name in record['names'] %}
+              <div>{{ name }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if 'labels' in record %}
+          <div class="label-container">
+            {% for label in record['labels'] %}
+              <span class="label label-success">Compound {{ label }}</span>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% if 'names' not in record and 'labels' not in record %}
+          <div>Unknown compound</div>
+        {% endif %}
+        {% if 'smiles' in record %}
+          <div class="smiles-container">
+            SMILES: {{ record['smiles'] }}
+          </div>
+          <div class="link-container">
+            <a href="{{ url_for('mol', smiles=record['smiles']) }}" class=""><i class="glyphicon glyphicon-save"></i> Download MOL</a>
+            <a href="http://www.chemspider.com/Search.aspx?q={{ record['smiles'] | urlencode }}" class=""><i class="glyphicon glyphicon-search"></i> Search ChemSpider</a>
+          </div>
+        {% endif %}
+      </div>
     </div>
     {% if 'nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'fluorescence_lifetimes' in record or 'quantum_yields' in record %}
       <ul class="list-group">
@@ -414,17 +430,23 @@
           <div>
             <div class="pull-right">
               <div class="btn-group">
-                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}" class="btn btn-default">Download Excel File</a>
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}">Download Excel File</a></li>
-                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id) }}">Download JSON File</a></li>
-                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xml') }}">Download XML File</a></li>
-                </ul>
+                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='sdf') }}" class="btn btn-default">SDF</a>
+                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}" class="btn btn-default">Excel</a>
+                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xml') }}" class="btn btn-default">XML</a>
+                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id) }}" class="btn btn-default">JSON</a>
               </div>
+{#              <div class="btn-group">#}
+{#                <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}" class="btn btn-default">Download Excel File</a>#}
+{#                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+{#                  <span class="caret"></span>#}
+{#                  <span class="sr-only">Toggle Dropdown</span>#}
+{#                </button>#}
+{#                <ul class="dropdown-menu">#}
+{#                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}">Download Excel File</a></li>#}
+{#                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id) }}">Download JSON File</a></li>#}
+{#                  <li><a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xml') }}">Download XML File</a></li>#}
+{#                </ul>#}
+{#              </div>#}
             </div>
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#tab-records" role="tab" data-toggle="tab">Chemical Records</a></li>
@@ -436,7 +458,7 @@
               <div role="tabpanel" class="tab-pane active" id="tab-records">
                 {% for result in job.result %}
                   {% for record in result['records'] %}
-                    {% if not record.keys() == ['names'] and not record.keys() == ['labels'] %}
+                    {% if 'nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'quantum_yields' in record or 'fluorescence_lifetimes' in record %}
                       {{ display_compound(record, loop.index0) }}
                     {% endif %}
                   {% endfor %}
@@ -447,7 +469,7 @@
                 {% if has_other %}
                   <div class="text-center show-other">
                     <a class="btn btn-link btn-lg" role="button" data-toggle="collapse" href="#other-records" aria-expanded="false" aria-controls="other-records">
-                      Show additional names
+                      Show additional compounds
                     </a>
                   </div>
 
@@ -458,7 +480,7 @@
                     </p>
                     {% for result in job.result %}
                       {% for record in result['records'] %}
-                        {% if record.keys() == ['names'] or record.keys() == ['labels'] %}
+                        {% if not ('nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'quantum_yields' in record or 'fluorescence_lifetimes' in record) and ('labels' in record or 'smiles' in record) %}
                           {{ display_compound(record, loop.index0) }}
                         {% endif %}
                       {% endfor %}

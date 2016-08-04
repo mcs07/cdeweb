@@ -13,15 +13,18 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
+import copy
 import logging
 import os
 import re
 import uuid
 
 import requests
-from flask import render_template, request, url_for, redirect, abort, flash
+from flask import render_template, request, url_for, redirect, abort, flash, Response, send_file
 from flask_mail import Message
-import natsort
+from rdkit import Chem
+from rdkit.Chem import AllChem
+from rdkit.Chem import Draw
 import six
 
 from . import app, tasks, db, mail
@@ -149,6 +152,8 @@ def results(result_id):
     task = celery.AsyncResult(result_id)
     job = CdeJob.query.filter_by(job_id=result_id).first_or_404()
 
+    prop_keys = {'nmr_spectra', 'ir_spectra', 'uvvis_spectra', 'melting_points', 'electrochemical_potentials', 'quantum_yields', 'fluorescence_lifetimes'}
+
     has_result = False
     has_important = False
     has_other = False
@@ -156,7 +161,9 @@ def results(result_id):
         for result in job.result:
             for record in result.get('records', []):
                 has_result = True
-                if record.keys() == ['names'] or record.keys() == ['labels']:
+                if any(k in prop_keys for k in record.keys()):
+                    has_important = True
+                elif 'labels' in record or 'smiles' in record:
                     has_other = True
                 else:
                     has_important = True
@@ -171,7 +178,28 @@ def results(result_id):
     )
 
 
-@app.route('/n2s/<name>')
-def n2s(name):
-    """Attempt to resolve structure for name."""
-    pass  # TODO.. ChemSpiPy and CIRpy... return SMILES. Use ChemDoodle Web Components for depiction
+@app.route('/depict/<path:smiles>')
+def depict(smiles):
+    """Depict structure"""
+    mol = Chem.MolFromSmiles(smiles)
+
+    mc = copy.deepcopy(mol)
+    try:
+        img = Draw.MolToImage(mc, size=(180, 180), kekulize=True, highlightAtoms=[])
+    except ValueError:  # <- can happen on a kekulization failure
+        mc = copy.deepcopy(mol)
+        img = Draw.MolToImage(mc, size=(180, 180), kekulize=False, highlightAtoms=[])
+    img_io = six.BytesIO()
+    img.save(img_io, 'PNG')
+    img_io.seek(0)
+    return Response(response=img_io.getvalue(), status=200, mimetype='image/png')
+
+
+@app.route('/mol/<path:smiles>')
+def mol(smiles):
+    """Return MOL for SMILES."""
+    mol = Chem.MolFromSmiles(smiles)
+    AllChem.Compute2DCoords(mol)
+    mb = Chem.MolToMolBlock(mol)
+    return Response(response=mb, status=200, mimetype='chemical/x-mdl-molfile', headers={'Content-Disposition': 'attachment;filename=structure.mol'})
+

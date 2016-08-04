@@ -15,15 +15,18 @@ from __future__ import print_function
 from __future__ import unicode_literals
 import logging
 import os
+import subprocess
+import tempfile
 import zipfile
 
+import cirpy
 from chemdataextractor import Document
 from chemdataextractor.scrape import DocumentEntity, NlmXmlDocument, Selector
+from chemdataextractor.text.normalize import chem_normalize
 from natsort import natsort
 
 from . import app, db, make_celery
-from .models import CdeJob
-
+from .models import CdeJob, ChemDict
 
 log = logging.getLogger(__name__)
 
@@ -56,10 +59,46 @@ def get_biblio(f, fname):
     return biblio
 
 
+def add_structures(result):
+    # Run OPSIN
+    with tempfile.NamedTemporaryFile(delete=False) as tf:
+        for record in result['records']:
+            for name in record.get('names', []):
+                tf.write(('%s\n' % name).encode('utf-8'))
+    subprocess.call([app.config['OPSIN_PATH'], '--allowRadicals', '--wildcardRadicals', '--allowAcidsWithoutAcid', '--allowUninterpretableStereo', tf.name, '%s.result' % tf.name])
+    with open('%s.result' % tf.name) as res:
+        structures = [line.strip() for line in res]
+        i = 0
+        for record in result['records']:
+            for name in record.get('names', []):
+                if 'smiles' not in record and structures[i]:
+                    log.debug('Resolved with OPSIN: %s = %s', name, structures[i])
+                    record['smiles'] = structures[i]
+                i += 1
+    os.remove(tf.name)
+    os.remove('%s.result' % tf.name)
+    # For failures, use NCI CIR (with local cache of results)
+    for record in result['records']:
+        for name in record.get('names', []):
+            if 'smiles' not in record:
+                local_entry = ChemDict.query.filter_by(name=name).first()
+                if local_entry:
+                    log.debug('Resolved with local dict: %s = %s', name, local_entry.smiles)
+                    if local_entry.smiles:
+                        record['smiles'] = local_entry.smiles
+                else:
+                    smiles = cirpy.resolve(chem_normalize(name).encode('utf-8'), 'smiles')
+                    log.debug('Resolved with CIR: %s = %s', name, smiles)
+                    db.session.add(ChemDict(name=name, smiles=smiles))
+                    if smiles:
+                        record['smiles'] = smiles
+    return result
+
+
 @celery.task()
 def run_cde(job_id):
     cde_job = CdeJob.query.get(job_id)
-    cde_job.result = []
+    job_result = []
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], cde_job.file)
     if filepath.endswith('.zip'):
         zf = zipfile.ZipFile(filepath)
@@ -71,15 +110,17 @@ def run_cde(job_id):
                 continue
             with zf.open(zipname) as f:
                 result = get_result(f, zipname)
+                result = add_structures(result)
             with zf.open(zipname) as f:
                 result['biblio'] = get_biblio(f, zipname)
             if result:
-                cde_job.result.append(result)
+                job_result.append(result)
     else:
         with open(filepath) as f:
             result = get_result(f, filepath)
+            result = add_structures(result)
         with open(filepath) as f:
             result['biblio'] = get_biblio(f, os.path.basename(filepath))
-        cde_job.result.append(result)
-
+        job_result.append(result)
+    cde_job.result = job_result
     db.session.commit()

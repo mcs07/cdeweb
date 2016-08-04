@@ -1,4 +1,6 @@
+cairocffi>=0.7.2
 celery>=3.1.20
+cirpy>=1.0.2
 dicttoxml>=1.6.6
 Flask>=0.10.1
 Flask-Mail>=0.9.1
@@ -14,6 +16,7 @@ marshmallow>=2.6.0
 marshmallow-sqlalchemy>=0.8.0
 natsort>=4.0.4
 pandas>=0.18.0
+pillow>=3.3.0
 psycopg2>=2.6.1
 requests>=2.9.1
 six>=1.10.0

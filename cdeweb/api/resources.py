@@ -45,7 +45,7 @@ submit_parser = api.parser()
 submit_parser.add_argument('file', type=werkzeug.datastructures.FileStorage, required=True, help='The input file.', location='files')
 
 result_parser = api.parser()
-result_parser.add_argument('format', help='Response format', location='query', choices=['json', 'xml', 'xlsx'])
+result_parser.add_argument('format', help='Response format', location='query', choices=['json', 'xml', 'xlsx', 'sdf'])
 
 
 @jobs.route('/')

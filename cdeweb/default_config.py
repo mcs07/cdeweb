@@ -25,3 +25,5 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'html', 'htm', 'xml', 'nxml', 'zip'}
 
 RESTPLUS_MASK_SWAGGER = False
 SWAGGER_UI_DOC_EXPANSION = 'full'
+
+OPSIN_PATH = '/usr/local/bin/opsin'

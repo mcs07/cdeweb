@@ -37,3 +37,10 @@ class CdeJob(db.Model):
     def status(self):
         from .tasks import celery
         return celery.AsyncResult(self.job_id).status
+
+
+class ChemDict(db.Model):
+    """A chemical name with associated SMILES."""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    smiles = db.Column(db.String, nullable=True)

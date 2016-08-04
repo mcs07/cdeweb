@@ -25,10 +25,14 @@ env.app_name = 'cdeweb'
 env.app_user = env.app_name
 # App installation directory
 env.app_dir = '/var/www/apps/%(app_name)s' % env
+# ChemDataExtractor installation directory
+env.cde_app_dir = '/var/www/apps/ChemDataExtractor' % env
 # Config file to use
 env.config_file = 'deploy/config.py'
 # Git remote to clone/pull from
 env.git_remote = 'git@github_cdeweb:mcs07/cdeweb.git'
+# Git remote to clone/pull from
+env.cde_remote = 'git@github_cde:mcs07/ChemDataExtractor.git'
 # Database user
 env.database_user = env.app_name
 # Database name
@@ -87,6 +91,53 @@ def setup_rabbitmq():
 
 
 @task
+def setup_opsin():
+    """Initial OPSIN setup."""
+    require.deb.packages(['openjdk-7-jre'])
+    with cd('/opt'):
+        require.file(url='https://bitbucket.org/dan2097/opsin/downloads/opsin-2.1.0-jar-with-dependencies.jar')
+        require.file(
+            path='/opt/opsin',
+            contents='#!/bin/bash\nexec java  -jar /opt/opsin-2.1.0-jar-with-dependencies.jar "$@"\n',
+            mode='755'
+        )
+
+
+@task
+def setup_rdkit():
+    """Initial RDKit setup."""
+    require.deb.packages([
+        'build-essential', 'python-numpy', 'cmake', 'python-dev', 'sqlite3', 'libsqlite3-dev', 'libboost-dev',
+        'libboost-system-dev', 'libboost-thread-dev', 'libboost-serialization-dev', 'libboost-python-dev',
+        'libboost-regex-dev', 'wget'
+    ])
+    with cd('/opt'):
+        require.file(url='https://github.com/rdkit/rdkit/archive/Release_2016_03_1.tar.gz')
+        sudo('tar -xvf Release_2016_03_1.tar.gz')
+
+    # Too lazy, just ran manually on the production machine...
+    # cd /opt
+    # sudo wget https://github.com/rdkit/rdkit/archive/Release_2016_03_1.tar.gz
+    # sudo tar -xvf Release_2016_03_1.tar.gz
+    # sudo mv rdkit-Release_2016_03_1 rdkit_2016_03_1
+
+    # sudo -i
+    # export RDBASE=/opt/rdkit_2016_03_1
+    # export LD_LIBRARY_PATH=/opt/rdkit_2016_03_1/lib:$LD_LIBRARY_PATH
+    # export PYTHONPATH=/opt/rdkit_2016_03_1:$PYTHONPATH
+    # export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+    #
+    #
+    # mkdir $RDBASE/build
+    # cd $RDBASE/build
+    # cmake -DRDK_BUILD_THREADSAFE_SSS=ON -DRDK_TEST_MULTITHREADED=ON -DRDK_BUILD_AVALON_SUPPORT=ON -DRDK_BUILD_INCHI_SUPPORT=ON ..
+    # make
+    # make install
+
+
+# TODO: libpng? PIL deps.. cairo
+
+@task
 def deploy():
     """Deploy everything."""
     deploy_app()
@@ -94,6 +145,15 @@ def deploy():
     deploy_config()
     deploy_nginx()
     deploy_celery()
+
+
+@task
+def deploy_cde():
+    """Deploy ChemDataExtractor by cloning from github repository."""
+    # TODO
+    # require.git.working_copy(env.cde_git_remote, path=env.cde_app_dir, update=True, use_sudo=True)
+    # require.files.directory(env.cde_app_dir, group='www-data', use_sudo=True)
+    pass
 
 
 @task

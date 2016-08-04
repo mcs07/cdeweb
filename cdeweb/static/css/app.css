@@ -110,6 +110,10 @@ pre {
   border-radius: 3px;
 }
 
+.nav-pills>li>a {
+  background-color: #fafafa;
+}
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
   background-color: #488eea;
 }
@@ -172,7 +176,7 @@ pre {
 
 .img-about {
   padding-top: 70px;
-  width: 100px;
+  width: 130px;
 }
 
 header h3 {
@@ -273,6 +277,32 @@ input[readonly] {
   background-color: #498feb;
 }
 
+.name-container, .label-container, .link-container, .smiles-container {
+  margin: 10px 0;
+}
+
+.name-container {
+  font-size: 20px;
+}
+
+.panel-compound .panel-body {
+  position: relative;
+}
+
+.smiles-container {
+  color: #999;
+
+}
+
+.link-container {
+  /*position: absolute;*/
+  /*bottom: 10px;*/
+}
+
+.link-container a {
+  padding-right: 10px;
+}
+
 *[data-toggle="collapse"] {
   cursor: pointer;
 }
@@ -331,4 +361,34 @@ th {
 #form-contact textarea {
   resize: vertical;
   height: 100px;
+}
+
+.compound-img {
+  border: 1px solid #ddd;
+  width: 180px;
+  height: 180px;
+  border-radius: 3px;
+  float: left;
+  /*margin-right: 15px;*/
+}
+
+.compound-meta.has-img {
+  margin-left: 195px;
+}
+
+.doc-icon {
+  float: left;
+  width: 80px;
+}
+
+.doc-meta {
+  margin-left: 110px;
+}
+
+.btn-result {
+  margin-top: 30px;
+}
+
+.nav-properties li {
+  margin: 5px;
 }

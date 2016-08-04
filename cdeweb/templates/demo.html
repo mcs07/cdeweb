@@ -13,13 +13,56 @@
     </p>
     <div>
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#tab-file" role="tab" data-toggle="tab">Upload file</a></li>
+        <li role="presentation" class="active"><a href="#tab-examples" role="tab" data-toggle="tab">Example files</a></li>
+        <li role="presentation"><a href="#tab-file" role="tab" data-toggle="tab">Upload a file</a></li>
         <li role="presentation"><a href="#tab-text" role="tab" data-toggle="tab">Enter text</a></li>
-        <li role="presentation"><a href="#tab-url" role="tab" data-toggle="tab">Enter URL</a></li>
+{#        <li role="presentation"><a href="#tab-url" role="tab" data-toggle="tab">Enter URL</a></li>#}
       </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="tab-file">
-          <p>ChemDataExtractor can process any document in HTML, XML or PDF format.</p>
+        <div role="tabpanel" class="tab-pane active" id="tab-examples">
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-10">
+              <img class="doc-icon" src="{{ url_for('static', filename='img/document.svg') }}">
+              <div class="doc-meta">
+                <h4>Photophysical characterization of the 9,10-disubstituted anthracene chromophore and its applications in triplet–triplet annihilation photon upconversion</h4>
+                <div>Gray et al., <em>Journal of Materials Chemistry C</em> 2015 <strong>3</strong> <a href="http://dx.doi.org/10.1039/c5tc02626a">10.1039/c5tc02626a</a></div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <a class="btn btn-primary btn-result" href="">Show Results {{utils.icon('chevron-right')}}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-12 col-sm-10">
+              <img class="doc-icon" src="{{ url_for('static', filename='img/document.svg') }}">
+              <div class="doc-meta">
+                <h4>Alkaline Air Oxidation of 5-hydroxy-2-methyl-1,4,4a,9a-tetrahydroanthracene-9,10-dione</h4>
+                <div>?? et al., <em>ChemSpider SyntheticPages</em> 2015 <a href="http://cssp.chemspider.com/801">cssp.chemspider.com/801</a></div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <a class="btn btn-primary btn-result" href="">Show Results {{utils.icon('chevron-right')}}</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-12 col-sm-10">
+              <img class="doc-icon" src="{{ url_for('static', filename='img/document.svg') }}">
+              <div class="doc-meta">
+                <h4>Process for the synthesis of 2-aminoxazole compounds</h4>
+                <div>US Patent <a href="https://patents.google.com/patent/US8198437B2/en">US-8080669-B2</a> (2011)</div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <a class="btn btn-primary btn-result" href="">Show Results {{utils.icon('chevron-right')}}</a>
+            </div>
+          </div>
+
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab-file">
           <p>This demo works best with the HTML version of journal articles published by the ACS and the RSC, and the JATS XML format used by PubMed Central. Support for PDF files is extremely limited.</p>
           <form class="form" method="POST" enctype="multipart/form-data">
             <div class="form-group">
@@ -48,7 +91,7 @@
 
 
         </div>
-
+        {#
         <div role="tabpanel" class="tab-pane" id="tab-url">
           <div class="alert alert-warning">
             <strong>Warning:</strong>
@@ -62,7 +105,7 @@
               <button id="submit-url" class="btn btn-lg btn-primary">Submit</button>
             </div>
           </form>
-        </div>
+        </div> #}
       </div>
     </div>
   </div>
