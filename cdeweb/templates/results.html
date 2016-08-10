@@ -28,11 +28,11 @@
         {% endif %}
         {% if 'smiles' in record %}
           <div class="smiles-container">
-            SMILES: {{ record['smiles'] }}
+            SMILES: <code class="smiles-display">{{ record['smiles'] }}</code>
           </div>
-          <div class="link-container">
-            <a href="{{ url_for('mol', smiles=record['smiles']) }}" class=""><i class="glyphicon glyphicon-save"></i> Download MOL</a>
-            <a href="http://www.chemspider.com/Search.aspx?q={{ record['smiles'] | urlencode }}" class=""><i class="glyphicon glyphicon-search"></i> Search ChemSpider</a>
+          <div class="btn-group link-container">
+            <a href="{{ url_for('mol', smiles=record['smiles']) }}" class="btn btn-link"><i class="glyphicon glyphicon-save"></i> Download MOL</a>
+            <a href="http://www.chemspider.com/Search.aspx?q={{ record['smiles'] | urlencode }}" class="btn btn-link"><i class="glyphicon glyphicon-search"></i> Search ChemSpider</a>
           </div>
         {% endif %}
       </div>
@@ -417,18 +417,19 @@
 {% block content %}
   <div class="container page-container">
     <div class="row">
-      <div class="col-sm-7">
+      <div class="col-xs-12">
+        <div class="pull-right">
+          <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}" data-toggle="tooltip" data-placement="bottom" title="Permanent link to this page">{{ utils.icon('link') }} Permalink</a>
+        </div>
         <h1>Online Demo Results</h1>
       </div>
-      <div class="col-sm-5 text-right">
-        <a class="btn btn-link" href="{{ url_for('results', result_id=job.job_id) }}" data-toggle="tooltip" data-placement="bottom" title="Permanent link to this page">{{ utils.icon('link') }} {{ job.job_id }}</a>
-      </div>
+
     </div>
     <div class="row">
       <div class="col-sm-12">
         {% if not task.failed() and job.result is not none %}
           <div>
-            <div class="pull-right">
+            <div class="download-container">
               <div class="btn-group">
                 <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='sdf') }}" class="btn btn-default">SDF</a>
                 <a href="{{ url_for('api.Jobs_cde_job_resource', job_id=job.job_id, format='xlsx') }}" class="btn btn-default">Excel</a>
