@@ -456,6 +456,7 @@
             </ul>
             <div class="tab-content">
               <div role="tabpanel" class="tab-pane active" id="tab-records">
+                <div class="text-muted small text-right">Name-to-structure powered by <a href="http://opsin.ch.cam.ac.uk">OPSIN</a> and <a href="http://cactus.nci.nih.gov/chemical/structure">NCI CIR</a></div>
                 {% for result in job.result %}
                   {% for record in result['records'] %}
                     {% if 'nmr_spectra' in record or 'ir_spectra' in record or 'uvvis_spectra' in record or 'melting_points' in record or 'electrochemical_potentials' in record or 'quantum_yields' in record or 'fluorescence_lifetimes' in record %}
