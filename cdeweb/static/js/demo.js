@@ -27,4 +27,8 @@ $(function() {
         }
     });
 
+    $('#example-link').on('click', function(e) {
+       $('.nav-tabs a[href="#tab-examples"]').click();
+    });
+
 });

@@ -5,7 +5,7 @@
 {% block content %}
   <div class="container page-container">
     <h1>Online Demo</h1>
-    <p>Upload a file or enter some text to try ChemDataExtractor online.</p>
+    <p>Upload a file or enter some text to try ChemDataExtractor online. Alternatively, check out one of our <a href="#tab-examples" id="example-link">example files</a>.</p>
     <p>
       This demo has been configured to extract NMR, IR, and UV-vis spectra, as well as melting points, electrochemical
       potentials, fluorescence lifetimes and quantum yields, along with compound identifiers and document metadata.
@@ -13,14 +13,39 @@
     </p>
     <div>
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#tab-examples" role="tab" data-toggle="tab">Example files</a></li>
-        <li role="presentation"><a href="#tab-file" role="tab" data-toggle="tab">Upload a file</a></li>
+        <li role="presentation" class="active"><a href="#tab-file" role="tab" data-toggle="tab">Upload a file</a></li>
         <li role="presentation"><a href="#tab-text" role="tab" data-toggle="tab">Enter text</a></li>
+        <li role="presentation"><a href="#tab-examples" role="tab" data-toggle="tab">Example files</a></li>
 {#        <li role="presentation"><a href="#tab-url" role="tab" data-toggle="tab">Enter URL</a></li>#}
       </ul>
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="tab-examples">
-
+        <div role="tabpanel" class="tab-pane active" id="tab-file">
+          <p>This demo works best with the HTML version of journal articles published by the ACS and the RSC, and the JATS XML format used by PubMed Central. Support for PDF files is extremely limited.</p>
+          <form class="form" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <span class="btn btn-default btn-file">Browse for file&hellip;<input type="file" name="input-file"></span>
+                </span>
+                <input type="text" class="form-control" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <button id="submit-file" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab-text">
+          <form class="form" method="POST">
+            <div class="form-group">
+              <textarea id="input-text" name="input-text" class="form-control" placeholder="Type or paste text here..."></textarea>
+            </div>
+            <div class="form-group">
+              <button id="submit-text" class="btn btn-lg btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab-examples">
           <div class="row">
             <div class="col-xs-12 col-sm-10">
               <img class="doc-icon" src="{{ url_for('static', filename='img/document.svg') }}">
@@ -59,37 +84,6 @@
               <a class="btn btn-primary btn-result" href="/results/6b7f82cc-987f-494e-9fa2-16f22c1c8cd0">Show Results {{utils.icon('chevron-right')}}</a>
             </div>
           </div>
-
-
-        </div>
-        <div role="tabpanel" class="tab-pane" id="tab-file">
-          <p>This demo works best with the HTML version of journal articles published by the ACS and the RSC, and the JATS XML format used by PubMed Central. Support for PDF files is extremely limited.</p>
-          <form class="form" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-              <div class="input-group">
-                <span class="input-group-btn">
-                  <span class="btn btn-default btn-file">Browse for file&hellip;<input type="file" name="input-file"></span>
-                </span>
-                <input type="text" class="form-control" readonly>
-              </div>
-            </div>
-            <div class="form-group">
-              <button id="submit-file" class="btn btn-lg btn-primary">Submit</button>
-            </div>
-          </form>
-        </div>
-
-        <div role="tabpanel" class="tab-pane" id="tab-text">
-          <form class="form" method="POST">
-            <div class="form-group">
-              <textarea id="input-text" name="input-text" class="form-control" placeholder="Type or paste text here..."></textarea>
-            </div>
-            <div class="form-group">
-              <button id="submit-text" class="btn btn-lg btn-primary">Submit</button>
-            </div>
-          </form>
-
-
         </div>
         {#
         <div role="tabpanel" class="tab-pane" id="tab-url">
