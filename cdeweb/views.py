@@ -13,18 +13,20 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
+
 import copy
 import logging
 import os
 import re
 import uuid
 
-import requests
-from flask import render_template, request, url_for, redirect, abort, flash, Response, send_file
+from flask import render_template, request, url_for, redirect, abort, flash, Response
 from flask_mail import Message
+import hoedown
 from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Chem import Draw
+import requests
 import six
 
 from . import app, tasks, db, mail
@@ -59,6 +61,50 @@ def evaluation():
 @app.route('/citing')
 def citing():
     return render_template('citing.html')
+
+
+@app.route('/docs')
+def docs_index():
+    return redirect(url_for('docs', docfile='intro'))
+
+
+@app.route('/docs/<docfile>')
+def docs(docfile):
+
+    toc = [
+        'intro', 'install', 'gettingstarted', 'reading', 'records', 'tokenization', 'pos', 'cem', 'lexicon',
+        'abbreviations'
+    ]
+
+    titles = {
+        'intro': 'Introduction',
+        'install': 'Installation',
+        'gettingstarted': 'Getting Started',
+        'reading': 'Reading Documents',
+        'records': 'Chemical Records',
+        'tokenization': 'Tokenization',
+        'pos': 'Part-of-speech Tagging',
+        'cem': 'Chemical Named Entities',
+        'lexicon': 'Lexicon',
+        'abbreviations': 'Abbreviation Detection'
+    }
+
+    docs_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'docs'))
+    source_path = os.path.abspath(os.path.join(docs_dir, '%s.md' % docfile))
+    # Check just in case somehow a path outside docs dir is constructed
+    if not source_path.startswith(docs_dir):
+        abort(404)
+    try:
+        with open(source_path) as mf:
+            content = hoedown.html(mf.read().decode('utf-8'))
+            prev_i = toc.index(docfile) - 1
+            prev = toc[prev_i] if prev_i >= 0 else None
+            next_i = toc.index(docfile) + 1
+            next = toc[next_i] if next_i < len(toc) else None
+            return render_template('docs.html', current=docfile, prev=prev, next=next, content=content, toc=toc, titles=titles)
+    except IOError:
+        abort(404)
+
 
 
 @app.route('/contact', methods=['GET', 'POST'])

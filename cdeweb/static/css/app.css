@@ -397,6 +397,16 @@ th {
   word-wrap: break-word;
 }
 
+.toc {
+  border-left: 1px solid #eee;
+  list-style-type: none;
+  padding: 0 0 0 10px;
+}
+
+.toc .current {
+  font-weight: bold;
+}
+
 @media (min-width:768px) {
   .download-container {
     float: right;
