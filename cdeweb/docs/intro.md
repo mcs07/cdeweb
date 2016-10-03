@@ -19,5 +19,5 @@ This guide provides a quick tour through ChemDataExtractor concepts and function
 
 If you use ChemDataExtractor as a resource in your research, please cite the following work:
 
-> M.C. Swain and J.M. Cole. "ChemDataExtractor: A toolkit for automated extraction of chemical information 
-  from the scientific literature" Submitted (2016).
+> M.C. Swain and J.M. Cole. "ChemDataExtractor: A Toolkit for Automated Extraction of Chemical Information from the
+  Scientific Literature", J. Chem. Inf. Model. 2016 (Accepted)
