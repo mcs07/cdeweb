@@ -21,11 +21,14 @@
       </div>
     </div>
     <div class="col-sm-3">
-      <ul class="toc">
-        {% for key in toc %}
-          <li class="{% if key == current %}current{% endif %}"><a href="{{ key }}">{{ titles[key] }}</a></li>
-        {% endfor %}
-      </ul>
+      <div class="toc">
+        <h4>Table of Contents</h4>
+        <ul>
+          {% for key in toc %}
+            <li class="{% if key == current %}current{% endif %}"><a href="{{ key }}">{{ titles[key] }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
   </div>
 {% endblock %}
