@@ -35,7 +35,29 @@ pre {
   display: block;
   padding: 15px;
   border: none;
-  border-radius: 0
+  border-radius: 0;
+  white-space: pre;
+  overflow: auto;
+}
+
+pre::-webkit-scrollbar {
+    height: 10px;
+    background: rgba(0, 0, 0, 0.15)
+}
+
+pre::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+pre > code {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: block;
+  word-wrap: normal;
+  white-space: pre;
 }
 
 .container {
@@ -510,3 +532,6 @@ th {
   color: #aaa;
 }
 
+.hljs-meta {
+  color: #aaa;
+}
