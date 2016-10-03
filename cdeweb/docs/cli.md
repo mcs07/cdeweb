@@ -26,7 +26,22 @@ Data commands:
 - `cde data where`: Print path to data directory.
 
 
-## Reading documents
+## Extracting Data
+
+To run ChemDataExtractor on a document, use:
+
+    cde extract <path>
+    
+where `path` is the path to an input file in HTML, XML or PDF format. This will write the output to the console. It is 
+also possible to specify an output file using the `-o` option:
+
+    cde extract <path> -o results.json
+    
+This will create a file called `results.json` containing the extraction results. Currently it is only possible to use
+ChemDataExtractor in its default configuration via the command line interface. For customization, use the Python API.
+
+
+## Reading Documents
 
 ChemDataExtractor processes each document input into a consistent internal format. To see what this looks like, run:
 
@@ -34,4 +49,16 @@ ChemDataExtractor processes each document input into a consistent internal forma
     
 where `path` is the path to an input file in HTML, XML or PDF format. This will output a list of document elements.
 
+##  Tokenization
 
+The first stage in the natural language processing pipeline is tokenization. First, text is split on sentence
+boundaries. To run the sentence tokenizer on a document, run:
+
+    cde tokenize sentences <path>
+    
+This will output each sentence on a new line.
+
+Each sentence is then split into individual word tokens. To do this, run:
+
+    cde tokenize words <path>
+    
