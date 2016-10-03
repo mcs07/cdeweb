@@ -2,6 +2,7 @@
 
 ChemDataExtractor includes a command line tool that can be accessed by typing `cde` at a command prompt.
 
+
 ## Using the Command Line
 
 On a Mac, open the **Terminal** app, which you can find by searching or by looking in the **Utilities** folder in the 
@@ -12,6 +13,7 @@ On Windows, use the **Command Prompt** or **PowerShell**.
 For each of the commands below, type or paste the command, then press **Return** to run it.
 
 For any command, add `--help` to the end to get information on how to use it.
+
 
 ## Downloading Data Files
 
@@ -37,7 +39,7 @@ also possible to specify an output file using the `-o` option:
 
     cde extract <path> -o results.json
     
-This will create a file called `results.json` containing the extraction results. Currently it is only possible to use
+This will create a file called `results.json` containing the extraction results. Currently, it is only possible to use
 ChemDataExtractor in its default configuration via the command line interface. For customization, use the Python API.
 
 
@@ -45,11 +47,12 @@ ChemDataExtractor in its default configuration via the command line interface. F
 
 ChemDataExtractor processes each document input into a consistent internal format. To see what this looks like, run:
 
-    cde read elements <path>
+    cde read <path>
     
 where `path` is the path to an input file in HTML, XML or PDF format. This will output a list of document elements.
 
-##  Tokenization
+
+## Tokenization
 
 The first stage in the natural language processing pipeline is tokenization. First, text is split on sentence
 boundaries. To run the sentence tokenizer on a document, run:
@@ -62,3 +65,13 @@ Each sentence is then split into individual word tokens. To do this, run:
 
     cde tokenize words <path>
     
+This returns an output with further spaces inserted between each token in each sentence line.
+    
+## Part-of-Speech Tagging
+
+ChemDataExtractor contains a part-of-speech (POS) tagger that has been trained specifically for chemistry text.
+
+    cde pos tag <path>
+
+The output consists of tokens followed by a forward slash and then their POS tag.
+
