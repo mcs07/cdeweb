@@ -29,3 +29,11 @@ class ContactForm(Form):
     email = StringField('Your email:', validators=[DataRequired(), Email()])
     message = TextAreaField('Message:', validators=[DataRequired()])
     submit = SubmitField('Send Message')
+
+
+class RegisterForm(Form):
+    """Form to register and download."""
+    email = StringField('Email Address', validators=[DataRequired(), Email()])
+    name = StringField('Full Name', validators=[DataRequired()])
+    affiliation = StringField('Affiliation')
+    submit = SubmitField('Register & Download')

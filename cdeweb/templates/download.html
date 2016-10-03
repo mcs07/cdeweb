@@ -5,87 +5,135 @@
 {% block content %}
   <div class="container page-container">
     <h1>Downloads</h1>
-    <h2>Releases</h2>
-    <p>ChemDataExtractor is available to download as an open source python package.</p>
-    <p>For help with installation and getting started, check out the <a href="/docs">documentation</a>.</p>
-{#    <div class="alert alert-danger"><strong>Note</strong>: Public downloads are currently disabled, pending paper acceptance.</div>#}
-    <div class="downloads">
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">11th April 2016</div>
+    {{ utils.flashed_messages(messages) }}
+    <div>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" {% if not registered %}class="active"{% endif %}><a href="#tab-register" role="tab" data-toggle="tab">Register for Updates</a></li>
+        <li role="presentation" {% if registered %}class="active"{% endif %}><a href="#tab-download" role="tab" data-toggle="tab">Download ChemDataExtractor</a></li>
+        <li role="presentation"><a href="#tab-evaluation" role="tab" data-toggle="tab">Download Evaluation Files</a></li>
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane{% if not registered %} active{% endif %}" id="tab-register">
+          <p>Registration is optional. If you register, we'll keep in touch with news and updates.</p>
+          <div class="row">
+            <div class="col-sm-6">
+              <form id="register-form" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form-group{% if form.email.errors %} has-error{% endif -%}">
+                  {{ form.email.label(class='control-label') }}
+                  {{ form.email(class='form-control') }}
+                  {% for error in form.email.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                <div class="form-group{% if form.name.errors %} has-error{% endif -%}">
+                  {{ form.name.label(class='control-label') }}
+                  {{ form.name(class='form-control') }}
+                  {% for error in form.name.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                <div class="form-group{% if form.affiliation.errors %} has-error{% endif -%}">
+                  {{ form.affiliation.label(class='control-label') }}
+                  {{ form.affiliation(class='form-control') }}
+                  {% for error in form.affiliation.errors %}
+                    <p class="help-block">{{ error }}</p>
+                  {% endfor %}
+                </div>
+                {{ form.submit(class='btn btn-primary') }}
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-9 download-body">
-          <span class="label label-success pull-right">Latest release</span>
-          <h3>ChemDataExtractor 1.1.0</h3>
-          <p>Source code for the ChemDataExtractor toolkit.</p>
-          <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+        <div role="tabpanel" class="tab-pane{% if registered %} active{% endif %}" id="tab-download">
+          <h2>Releases</h2>
+          <p>
+            ChemDataExtractor is available as an open source python package. The <a href="/docs/install">recommended
+            installation method is using pip</a>.
+          </p>
+          <p>
+            Alternatively, you can download the latest release below. For help with installation and getting started,
+            check out the <a href="/docs">documentation</a>.
+          </p>
+          <div class="downloads">
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">3rd October 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <span class="label label-success pull-right">Latest release</span>
+                <h3>ChemDataExtractor 1.1.0</h3>
+                <p>Source code for the ChemDataExtractor toolkit.</p>
+                <a class="btn btn-primary disabled" href="#">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab-evaluation">
+          <h2 id="evaluation">Evaluation files</h2>
+          <p>ChemDataExtractor performance was evaluated as part of the following publication:</p>
+          <div class="well">
+            M.C. Swain and J.M. Cole. "ChemDataExtractor: A Toolkit for Automated Extraction of Chemical Information from the
+            Scientific Literature", J. Chem. Inf. Model. 2016 (Accepted) <a href="http://dx.doi.org/10.1021/acs.jcim.6b00207">10.1021/acs.jcim.6b00207</a>
+          </div>
+          <div class="downloads">
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">14th September 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>ChemDataExtractor patent melting points</h3>
+                <p>An SDF file containing melting points extracted from 2,000 patents by ChemDataExtractor.</p>
+                <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-melting-points.sdf.gz">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">14th September 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>ChemDataExtractor patent melting points - filtered</h3>
+                <p>An SDF file containing melting points extracted from 2,000 patents by ChemDataExtractor, with duplicate compounds removed.</p>
+                <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-melting-points-filtered.sdf.gz">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">11th April 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>Evaluation journal articles</h3>
+                <p>A collection of 50 open access journal articles that were used in the evaluation.</p>
+                <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-source.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">11th April 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>Gold standard journal data</h3>
+                <p>Manually extracted chemical information from the evaluation articles, in JSON format.</p>
+                <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-gold.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+            <div class="row download">
+              <div class="col-sm-3 download-meta">
+                <div class="text-muted download-date">11th April 2016</div>
+              </div>
+              <div class="col-sm-9 download-body">
+                <h3>ChemDataExtractor journal outputs</h3>
+                <p>Output from applying ChemDataExtractor to the evaluation articles, in JSON format.</p>
+                <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-output.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <h2 id="evaluation">Evaluation files</h2>
-    <p>ChemDataExtractor performance was evaluated as part of the following publication:</p>
-    <div class="well">
-      M.C. Swain and J.M. Cole. "ChemDataExtractor: A Toolkit for Automated Extraction of Chemical Information from the
-      Scientific Literature", J. Chem. Inf. Model. 2016 (Accepted) <a href="http://dx.doi.org/10.1021/acs.jcim.6b00207">10.1021/acs.jcim.6b00207</a>
-    </div>
-{#    <div class="alert alert-danger"><strong>Note</strong>: Public downloads are currently disabled, pending paper acceptance.</div>#}
-    <div class="downloads">
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">14th September 2016</div>
-        </div>
-        <div class="col-sm-9 download-body">
-{#          <span class="label label-success pull-right">Latest release</span>#}
-          <h3>ChemDataExtractor patent melting points</h3>
-          <p>An SDF file containing melting points extracted from 2,000 patents by ChemDataExtractor.</p>
-          <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-melting-points.sdf.gz">{{ utils.icon('circle-arrow-down') }} Download</a>
-        </div>
-      </div>
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">14th September 2016</div>
-        </div>
-        <div class="col-sm-9 download-body">
-{#          <span class="label label-success pull-right">Latest release</span>#}
-          <h3>ChemDataExtractor patent melting points - filtered</h3>
-          <p>An SDF file containing melting points extracted from 2,000 patents by ChemDataExtractor, with duplicate compounds removed.</p>
-          <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-melting-points-filtered.sdf.gz">{{ utils.icon('circle-arrow-down') }} Download</a>
-        </div>
-      </div>
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">11th April 2016</div>
-        </div>
-        <div class="col-sm-9 download-body">
-{#          <span class="label label-success pull-right">Latest release</span>#}
-          <h3>Evaluation journal articles</h3>
-          <p>A collection of 50 open access journal articles that were used in the evaluation.</p>
-          <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-source.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
-        </div>
-      </div>
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">11th April 2016</div>
-        </div>
-        <div class="col-sm-9 download-body">
-{#          <span class="label label-success pull-right">Latest release</span>#}
-          <h3>Gold standard journal data</h3>
-          <p>Manually extracted chemical information from the evaluation articles, in JSON format.</p>
-          <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-gold.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
-        </div>
-      </div>
-      <div class="row download">
-        <div class="col-sm-3 download-meta">
-          <div class="text-muted download-date">11th April 2016</div>
-        </div>
-        <div class="col-sm-9 download-body">
-{#          <span class="label label-success pull-right">Latest release</span>#}
-          <h3>ChemDataExtractor journal outputs</h3>
-          <p>Output from applying ChemDataExtractor to the evaluation articles, in JSON format.</p>
-          <a class="btn btn-primary" href="http://data.chemdataextractor.org/evaluation/chemdataextractor-journal-articles-output.zip">{{ utils.icon('circle-arrow-down') }} Download</a>
-        </div>
-      </div>
-    </div>
+
+
 
   </div>
   </div>

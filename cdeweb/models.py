@@ -44,3 +44,11 @@ class ChemDict(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     smiles = db.Column(db.String, nullable=True)
+
+
+class User(db.Model):
+    """Registered user."""
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=True)
+    affiliation = db.Column(db.String, nullable=True)

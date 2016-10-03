@@ -30,8 +30,8 @@ import requests
 import six
 
 from . import app, tasks, db, mail
-from .forms import ContactForm
-from .models import CdeJob
+from .forms import ContactForm, RegisterForm
+from .models import CdeJob, User
 from .tasks import celery
 
 
@@ -48,9 +48,17 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/download')
+@app.route('/download', methods=['GET', 'POST'])
 def download():
-    return render_template('download.html')
+    registered = request.args.get('registered', False)
+    form = RegisterForm()
+    if form.validate_on_submit():
+        user = User(email=request.form['email'], name=request.form['name'], affiliation=request.form['affiliation'])
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successful')
+        return redirect(url_for('download', registered=True))
+    return render_template('download.html', form=form, registered=registered)
 
 
 @app.route('/evaluation')
