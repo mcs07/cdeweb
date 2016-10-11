@@ -21,7 +21,6 @@ import re
 import uuid
 
 from flask import render_template, request, url_for, redirect, abort, flash, Response
-from flask_mail import Message
 import hoedown
 from rdkit import Chem
 from rdkit.Chem import AllChem
@@ -29,8 +28,8 @@ from rdkit.Chem import Draw
 import requests
 import six
 
-from . import app, tasks, db, mail
-from .forms import ContactForm, RegisterForm
+from . import app, tasks, db
+from .forms import RegisterForm
 from .models import CdeJob, User
 from .tasks import celery
 
@@ -116,20 +115,9 @@ def docs(docfile):
         abort(404)
 
 
-
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact')
 def contact():
-    form = ContactForm()
-    if form.validate_on_submit():
-        msg = Message(
-            subject='ChemDataExtractor contact message',
-            recipients=app.config['MAIL_RECIPIENTS'],
-            body='From: %s <%s>\n\n%s' % (form.name.data, form.email.data, form.message.data)
-        )
-        mail.send(msg)
-        flash('Your message was sent successfully.')
-        return redirect(url_for('contact'))
-    return render_template('contact.html', form=form)
+    return render_template('contact.html')
 
 
 @app.route('/demo', methods=['GET', 'POST'])

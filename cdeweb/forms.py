@@ -16,19 +16,11 @@ from __future__ import unicode_literals
 import logging
 
 from flask_wtf import Form
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 
 log = logging.getLogger(__name__)
-
-
-class ContactForm(Form):
-    """Form to contact us."""
-    name = StringField('Your name:', validators=[DataRequired()])
-    email = StringField('Your email:', validators=[DataRequired(), Email()])
-    message = TextAreaField('Message:', validators=[DataRequired()])
-    submit = SubmitField('Send Message')
 
 
 class RegisterForm(Form):
