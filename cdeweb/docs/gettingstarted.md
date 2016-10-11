@@ -26,8 +26,8 @@ All chemical mentions, abbreviations, properties and spectra are combined to pro
 chemical entitiy:
 
     >>> doc.records
-    [<Compound: Compound object>, <Compound: Compound object>]
-    >>> doc.records[0].to_primitive()
-    {'names': [u'5,10,15,20-Tetra(4-carboxyphenyl)porphyrin']}
-    >>> doc.records[1].to_primitive()
-    {'names': [u'Tetrahydrofuran', u'THF']}
+    [<Compound>, <Compound>]
+    >>> doc.records[0].serialize()
+    {'names': ['5,10,15,20-Tetra(4-carboxyphenyl)porphyrin']}
+    >>> doc.records[1].serialize()
+    {'names': ['Tetrahydrofuran', 'THF']}

@@ -4,13 +4,13 @@ Most commonly, you want to pass an entire document file to ChemDataExtractor.
 
 ChemDataExtractor comes with a number of built-in Document readers that can read HTML (web pages), PDF and XML files:
 
-    >>> f = open('paper.html')
+    >>> f = open('paper.html', 'rb')
     >>> doc = Document.from_file(f)
 
 Each reader will be tried in turn until one is successfully able to read the file. If you know exactly which readers
 you want to use, it is possible to specify a list as an optional `readers` parameter:
 
-    >>> f = open('rsc_article.html')
+    >>> f = open('rsc_article.html', 'rb')
     >>> doc = Document.from_file(f, readers=[RscHtmlReader()])
 
 The available readers are:
@@ -27,6 +27,8 @@ The available readers are:
 
 The HTML and XML readers can determine document structure such as headings, paragraphs, and tables with high accuracy.
 However, this is much harder to achieve with the PDF and plain text readers.
+
+Note: Always open files in binary mode by using the `'rb'` parameter.
 
 ## Document Elements
 

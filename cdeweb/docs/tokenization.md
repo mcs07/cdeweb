@@ -4,6 +4,7 @@
 
 Use the `sentences` property on a text-based document element to perform sentence segmentation:
 
+    >>> from chemdataextractor.doc import Paragraph
     >>> para = Paragraph('1,4-Dibromoanthracene was prepared from 1,4-diaminoanthraquinone. 1H NMR spectra were recorded on a 300 MHz BRUKER DPX300 spectrometer.')
     >>> para.sentences
     [Sentence('1,4-Dibromoanthracene was prepared from 1,4-diaminoanthraquinone.', 0, 65),
