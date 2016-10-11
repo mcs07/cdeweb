@@ -11,17 +11,19 @@ Each reader will be tried in turn until one is successfully able to read the fil
 you want to use, it is possible to specify a list as an optional `readers` parameter:
 
     >>> f = open('rsc_article.html')
-    >>> doc = Document.from_file(f, readers=[RscDocumentReader])
+    >>> doc = Document.from_file(f, readers=[RscHtmlReader()])
 
 The available readers are:
 
-- AcsHtmlDocumentReader - For ACS HTML articles
-- RscHtmlDocumentReader - For RSC HTML articles
-- NlmXmlDocumentReader - For NLM/JATS XML (e.g. from PubMed Central)
-- XmlDocumentReader - Generic XML
-- HtmlDocumentReader - Generic HTML
-- PdfDocumentReader - Generic PDF
-- PlainTextDocumentReader - Generic plain text
+- AcsHtmlReader - For ACS HTML articles
+- RscHtmlReader - For RSC HTML articles
+- NlmXmlReader - For NLM/JATS XML (e.g. from PubMed Central)
+- UsptoXmlReader - For patent XML from the US Patent Office
+- CsspHtmlReader - For ChemSpider SyntheticPages
+- XmlReader - Generic XML
+- HtmlReader - Generic HTML
+- PdfReader - Generic PDF
+- PlainTextReader - Generic plain text
 
 The HTML and XML readers can determine document structure such as headings, paragraphs, and tables with high accuracy.
 However, this is much harder to achieve with the PDF and plain text readers.
