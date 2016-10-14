@@ -419,6 +419,10 @@ th {
   word-wrap: break-word;
 }
 
+#tab-json code {
+  max-width: none;
+}
+
 .toc {
   border-left: 1px solid #eee;
   padding: 10px 0 10px 10px;
