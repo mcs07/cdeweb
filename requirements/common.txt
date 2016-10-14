@@ -1,3 +1,4 @@
+blinker>=1.4
 cairocffi>=0.7.2
 celery>=3.1.20
 cirpy>=1.0.2
@@ -18,6 +19,7 @@ natsort>=4.0.4
 pandas>=0.18.0
 pillow>=3.3.0
 psycopg2>=2.6.1
+raven>=5.27.1
 requests>=2.9.1
 six>=1.10.0
 SQLAlchemy>=1.0.11

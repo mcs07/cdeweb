@@ -22,6 +22,7 @@ from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
+from raven.contrib.flask import Sentry
 
 
 log = logging.getLogger(__name__)
@@ -60,6 +61,9 @@ ma = Marshmallow(app)
 migrate = Migrate(app, db)
 moment = Moment(app)
 
+# Register Sentry Raven in production only
+if 'SENTRY_DSN' in app.config:
+    sentry = Sentry(app, app.config['SENTRY_DSN'])
 
 # Register blueprints
 register_blueprints(app)
