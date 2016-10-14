@@ -22,11 +22,12 @@ Once installed, at the command line, run:
     conda install -c chemdataextractor chemdataextractor
     
 This command installs the `chemdataextractor` package from the `chemdataextractor` 
-[conda channel](conda.anaconda.org/chemdataextractor).
+[conda channel](http://conda.anaconda.org/chemdataextractor).
 
 ### Option 2: Use pip
 
-If you already have Python installed, it's easiest to install the ChemDataExtractor package using `pip`:
+If you already have Python installed, it's easiest to install the ChemDataExtractor package using `pip`. At the 
+command line, run:
 
     pip install ChemDataExtractor
 
@@ -38,9 +39,8 @@ don't already have pip installed, you can
 ### Option 3: Download the Latest Release
 
 Alternatively, [download the latest release](http://data.chemdataextractor.org/download) manually and install yourself 
-by running::
+by running:
 
-    cd ChemDataExtractor-1.0.0
     python setup.py install
 
 The setup.py command will install ChemDataExtractor in your `site-packages` folder so it is automatically available to
