@@ -63,7 +63,7 @@ moment = Moment(app)
 
 # Register Sentry Raven in production only
 if 'SENTRY_DSN' in app.config:
-    sentry = Sentry(app, app.config['SENTRY_DSN'])
+    sentry = Sentry(app, dsn=app.config['SENTRY_DSN'])
 
 # Register blueprints
 register_blueprints(app)
