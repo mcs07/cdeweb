@@ -76,3 +76,23 @@ Or the individual tokens:
       Token('DPX300', 115, 121),
       Token('spectrometer', 122, 134),
       Token('.', 134, 135)]]
+
+
+## Which file formats are best?
+
+While ChemDataExtractor supports documents in a wide variety of formats, some are better suited for extraction than 
+others. If there is an HTML or XML version available, that is normally the best choice.
+
+Wherever possible, avoid using the PDF version of a paper or patent. At best, the text will be interpretable, but it
+is extremely difficult to reliably distinguish between headings, captions and main body text. At worst, the document 
+will just consist of a scanned image of each page, and it won't be possible to extract any of the text at all. You can 
+get some idea of what ChemDataExtractor can see in a PDF by looking at the result of copying-and-pasting from the 
+document.
+
+For scientific articles, most publishers offer a HTML version alongside the PDF version. Normally, this will open as
+a page in your web browser. Just choose "Save As..." and ensure the selected format is "HTML" or "Page Source" to save 
+a copy of the HTML file to your computer.
+
+Most patent offices provide XML versions of their patent documents, but these can be hard to find. Two useful resources
+are the [USPTO Bulk Data Download Service](https://bulkdata.uspto.gov) and the 
+[EPO Open Patent Services API](http://www.epo.org/searching-for-patents/technical/espacenet/ops.html).
