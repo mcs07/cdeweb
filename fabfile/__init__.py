@@ -31,8 +31,6 @@ env.cde_app_dir = '/var/www/apps/ChemDataExtractor' % env
 env.config_file = 'deploy/config.py'
 # Git remote to clone/pull from
 env.git_remote = 'git@github_cdeweb:mcs07/cdeweb.git'
-# Git remote to clone/pull from
-env.cde_remote = 'git@github_cde:mcs07/ChemDataExtractor.git'
 # Database user
 env.database_user = env.app_name
 # Database name
