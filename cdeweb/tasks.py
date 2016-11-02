@@ -38,7 +38,7 @@ def get_result(f, fname):
         document = Document.from_file(f, fname=fname)
     except Exception:
         return {}
-    records = [r.to_primitive() for r in document.records]
+    records = document.records.serialize()
     records = natsort.natsorted(records, lambda x: x.get('labels', ['ZZZ%s' % (99 - len(x.get('names', [])))])[0])
     result = {
         'records': records,
