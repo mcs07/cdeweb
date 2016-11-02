@@ -15,18 +15,12 @@ from . import db
 from . import rabbitmq
 
 
-# #: Production server ssh login username
-# env.user = 'root'
-# # Production server
-# env.hosts = ['chemdataextractor.org']
 # Application name
 env.app_name = 'cdeweb'
 # Application user
 env.app_user = env.app_name
 # App installation directory
 env.app_dir = '/var/www/apps/%(app_name)s' % env
-# ChemDataExtractor installation directory
-env.cde_app_dir = '/var/www/apps/ChemDataExtractor' % env
 # Config file to use
 env.config_file = 'deploy/config.py'
 # Git remote to clone/pull from
@@ -43,12 +37,14 @@ env.rabbitmq_vhost = '%(app_name)s_vhost' % env
 
 @task
 def dev():
+    """Development server connection details."""
     env.user = 'vagrant'
     env.hosts = ['192.168.33.10']
 
 
 @task
 def prod():
+    """Production server connection details."""
     env.user = 'root'
     env.hosts = ['chemdataextractor.org']
 
@@ -143,15 +139,6 @@ def deploy():
     deploy_config()
     deploy_nginx()
     deploy_celery()
-
-
-@task
-def deploy_cde():
-    """Deploy ChemDataExtractor by cloning from github repository."""
-    # TODO
-    # require.git.working_copy(env.cde_git_remote, path=env.cde_app_dir, update=True, use_sudo=True)
-    # require.files.directory(env.cde_app_dir, group='www-data', use_sudo=True)
-    pass
 
 
 @task
