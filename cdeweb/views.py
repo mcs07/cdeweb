@@ -80,7 +80,7 @@ def docs(docfile):
 
     toc = [
         'intro', 'install', 'gettingstarted', 'reading', 'records', 'tokenization', 'pos', 'cem', 'lexicon',
-        'abbreviations', 'cli', 'scrape',
+        'abbreviations', 'cli', 'scrape', 'contributing'
     ]
 
     titles = {
@@ -95,7 +95,8 @@ def docs(docfile):
         'lexicon': 'Lexicon',
         'abbreviations': 'Abbreviation Detection',
         'cli': 'Command Line Interface',
-        'scrape': 'Scraping Structured Data'
+        'scrape': 'Scraping Structured Data',
+        'contributing': 'Contributing'
     }
 
     docs_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'docs'))
