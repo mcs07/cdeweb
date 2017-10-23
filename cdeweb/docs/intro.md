@@ -22,3 +22,5 @@ If you use ChemDataExtractor as a resource in your research, please cite the fol
 > Swain, M. C., & Cole, J. M. "ChemDataExtractor: A Toolkit for Automated Extraction of Chemical Information from 
   the Scientific Literature", J. Chem. Inf. Model. **2016**, *56* (10), pp 1894–1904
   [10.1021/acs.jcim.6b00207](http://dx.doi.org/10.1021/acs.jcim.6b00207)
+
+This project has been funded by the UK Engineering and Physical Sciences Research Council (EPSRC).
